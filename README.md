@@ -17,9 +17,9 @@ Our Project vision is to create a fun, multiplayer app that allows people to int
 Rocket Eagle is an online multiplayer racing game. Players must navigate through pipes while avoiding attacks from their fellow racers. 
 
 
-Home (https://github.com/Rocket-Eagle/Rocket-Eagle/wiki)
-Objectives (https://github.com/Rocket-Eagle/Rocket-Eagle/wiki)
-Core Features (https://github.com/Rocket-Eagle/Rocket-Eagle/wiki)
-Tools and Description (https://github.com/Rocket-Eagle/Rocket-Eagle/wiki/Tools-And-Descriptions)
-Meeting Notes (https://github.com/Rocket-Eagle/Rocket-Eagle/wiki/Meetings)
+- [Home](https://github.com/Rocket-Eagle/Rocket-Eagle/wiki)
+- [Objectives](https://github.com/Rocket-Eagle/Rocket-Eagle/wiki)
+- [Core Features](https://github.com/Rocket-Eagle/Rocket-Eagle/wiki)
+- [Tools and Description](https://github.com/Rocket-Eagle/Rocket-Eagle/wiki/Tools-And-Descriptions)
+- [Meeting Notes](https://github.com/Rocket-Eagle/Rocket-Eagle/wiki/Meetings)
 

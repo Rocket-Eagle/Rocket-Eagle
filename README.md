@@ -10,7 +10,8 @@
 
 
 ### Project Vision  
-Our Project vision is to create a fun, multiplayer app that allows people to interact with each other. This is especially helpful during the hard times the world is going through. Our app allows people to maintain social distancing while still engaging with other people, and have a fun time while they are at it. We plan to interactively add new features and items as time allows to ensure that we offer a fresh, unique experience that keeps people enthralled.
+To bring fun and joy into the lives of everyday people by allowing them to play quick and exciting games.
+
 =======
 
 ### Description

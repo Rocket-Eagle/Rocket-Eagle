@@ -12,8 +12,6 @@
 ### Project Vision  
 To bring fun and joy into the lives of everyday people by allowing them to play quick and exciting games.
 
-=======
-
 ### Description
 Rocket Eagle is an online multiplayer racing game. Players must navigate through pipes while avoiding attacks from their fellow racers. 
 

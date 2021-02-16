@@ -11,6 +11,9 @@ public class BirdController : MonoBehaviour
     public Vector2 penalty = new Vector2(5,0);
     public Vector2 horizontalAcceleration = new Vector2(1, 0);
 
+    public float upperVelocity = 1;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +27,12 @@ public class BirdController : MonoBehaviour
         if (rigidBody.velocity.x < startingVelocity.x) {
             rigidBody.velocity = rigidBody.velocity + horizontalAcceleration * Time.deltaTime;
         }
-        
+
+        // increase altitude if screen is tapped
+        if (Input.GetMouseButtonDown(0)){
+            rigidBody.velocity = Vector2.up * upperVelocity;
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D col) {

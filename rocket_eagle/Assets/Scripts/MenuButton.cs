@@ -12,21 +12,30 @@ public class MenuButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if(menuButtonController.index == thisIndex)
+		playAnimations();
+    }
+
+	public void playAnimations()
+    {
+		if (menuButtonController.index == thisIndex)
 		{
-			animator.SetBool ("selected", true);
-			if(Input.GetAxis ("Submit") == 1)
+			
+			animator.SetBool("selected", true);
+			if (Input.GetAxis("Submit") == 1 || Input.GetMouseButtonDown(0))
 			{
 				//the user has selected the menu item at thisIndex
-				animator.SetBool ("pressed", true);
-			}else if (animator.GetBool ("pressed"))
+				animator.SetBool("pressed", true);
+				Debug.Log("Playing animation for index:" + thisIndex);
+			}
+			else if (animator.GetBool("pressed"))
 			{
-				animator.SetBool ("pressed", false);
+				animator.SetBool("pressed", false);
 				animatorFunctions.disableOnce = true;
 			}
-		}else
-		{
-			animator.SetBool ("selected", false);
 		}
-    }
+		else
+		{
+			animator.SetBool("selected", false);
+		}
+	}
 }

@@ -10,8 +10,9 @@ public class MenuButtonController : MonoBehaviour {
 	[SerializeField] int maxIndex;
 	public int index;
 	public AudioSource audioSource;
+	public bool disableOnce;
 
-	
+
 
 	void Start () 
 	{
@@ -90,6 +91,18 @@ public class MenuButtonController : MonoBehaviour {
 				break;
 		}
 		
+	}
+
+	public void playSelectionSound(AudioClip audioClip)
+    {
+		if (!disableOnce)
+		{
+			audioSource.PlayOneShot(audioClip);
+		}
+		else
+		{
+			disableOnce = false;
+		}
 	}
 
 }

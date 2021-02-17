@@ -19,23 +19,25 @@ public class MenuButton : MonoBehaviour
     {
 		if (menuButtonController.index == thisIndex)
 		{
-			
+			//Debug.Log("Found Matching index:" + thisIndex);
 			animator.SetBool("selected", true);
 			if (Input.GetAxis("Submit") == 1 || Input.GetMouseButtonDown(0))
 			{
 				//the user has selected the menu item at thisIndex
 				animator.SetBool("pressed", true);
-				Debug.Log("Playing animation for index:" + thisIndex);
+				Debug.Log("Detected click for:" + thisIndex);
 			}
 			else if (animator.GetBool("pressed"))
 			{
 				animator.SetBool("pressed", false);
 				animatorFunctions.disableOnce = true;
+				Debug.Log("Reseting pressed variable");
 			}
 		}
 		else
 		{
 			animator.SetBool("selected", false);
+
 		}
 	}
 }

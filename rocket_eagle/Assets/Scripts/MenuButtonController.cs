@@ -58,6 +58,11 @@ public class MenuButtonController : MonoBehaviour {
 
 				//launch the options sub menu
 				break;
+
+			default:
+					Debug.Log("WARNING! Button was selected that doesn't have a proper function with it!");
+					Debug.Log("The Index was:" + buttonIndex);
+				break;
 		}
 		
 	}

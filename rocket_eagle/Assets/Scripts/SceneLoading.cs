@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class SceneLoading : MonoBehaviour
 {
     [SerializeField]private Image _progressBar;
+    public string nextScene = "Field";
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class SceneLoading : MonoBehaviour
     IEnumerator LoadAsyncOperation()
     {
         //get the async operation manager
-        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(1);
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(nextScene);
 
 
         while(gameLevel.progress < 1)

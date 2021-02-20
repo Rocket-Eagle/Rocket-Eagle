@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class SelectLevel : MonoBehaviour
 {
@@ -83,6 +84,10 @@ public class SelectLevel : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Playing level:" + currentSelected);
+
+        //unsure of what is better here, to do Additive or Single. I think that since this is loading from
+        //the menu to the loading screen Additive is fine
+        SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Additive);
     }
 
     /*

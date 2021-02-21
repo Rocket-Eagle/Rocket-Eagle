@@ -13,13 +13,13 @@ public class Timer : MonoBehaviour
     void OnEnable()
     {
         time = GetComponent<Text>();
-        time.text = "Time : ";
+        time.text = "T i m e : ";
     }
 
     // Update is called once per frame
     void Update()
     {
         timeElapsed += Time.deltaTime;
-        time.text = "Time : " + timeElapsed.ToString("F2");
+        time.text = "T i m e : " + timeElapsed.ToString("F2");
     }
 }

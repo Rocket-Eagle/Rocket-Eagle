@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class SelectLevel : MonoBehaviour
 {
     //the array that holds the images that the player can cycle through
-    //private Image[] images;
     private Object[] imagePreviews;
+    //the currently previewed image
     private int currentSelected;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         //load in all the images in the 'Assets/Resources/LevelSelection/Levels' file
         //NOTE: these images must be of the size (UNDEFINED AS OF RIGHT NOW) in order for them to load properly
@@ -23,6 +23,12 @@ public class SelectLevel : MonoBehaviour
 
         //set the index
         currentSelected = 0;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -83,6 +89,10 @@ public class SelectLevel : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Playing level:" + currentSelected);
+
+        //unsure of what is better here, to do Additive or Single. I think that since this is loading from
+        //the menu to the loading screen Additive is fine
+        SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Additive);
     }
 
     /*

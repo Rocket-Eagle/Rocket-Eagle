@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 public class MenuButtonController : MonoBehaviour {
 
 	// Use this for initialization
-	//[SerializeField] bool keyDown;
 	[SerializeField] int maxIndex;
-	//public int index;
 	public AudioSource audioSource;
 	public bool disableOnce;
 

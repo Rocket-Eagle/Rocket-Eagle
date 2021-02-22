@@ -18,6 +18,7 @@ public class BirdController : MonoBehaviour
     public float recoveryTimer = 0.0f;
     public bool recovering = false;
     public Quaternion originalRotation;
+    public bool finished = false;
 
     public int lap = 1;
 
@@ -77,6 +78,7 @@ public class BirdController : MonoBehaviour
             if (lap == 3)
             {
                 SceneManager.LoadScene("SinglePlayerEnding");
+                finished = true;
             }
             else
             {

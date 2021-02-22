@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class BirdController : MonoBehaviour
@@ -17,6 +18,9 @@ public class BirdController : MonoBehaviour
     public float recoveryTimer = 0.0f;
     public bool recovering = false;
     public Quaternion originalRotation;
+    public bool finished = false;
+
+    public int lap = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -68,8 +72,25 @@ public class BirdController : MonoBehaviour
             rigidBody.velocity = new Vector2(0,0);
 
             recovering = true;
-        } 
-    }
+        }
+        if (col.gameObject.tag == "Finish")
+        {
+            if (lap == 3)
+            {
+                SceneManager.LoadScene("SinglePlayerEnding");
+                finished = true;
+            }
+            else
+            {
+                lap++;
+                rigidBody.position = new Vector2(-6.8f, -0.65f);
+            }
+        }
+        if (col.gameObject.tag == "SpeedBoost")
+        {
+            rigidBody.velocity = rigidBody.velocity + horizontalAcceleration;
+        }
+        }
 
     private void Blink()
     {

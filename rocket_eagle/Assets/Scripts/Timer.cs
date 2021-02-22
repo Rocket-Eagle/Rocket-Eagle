@@ -9,17 +9,26 @@ public class Timer : MonoBehaviour
 
     Text time;
     public float timeElapsed = 0.0f;
+    GameObject player;
+    BirdController bird;
+    
     // Start is called before the first frame update
     void OnEnable()
     {
+        player = GameObject.Find("bird");
         time = GetComponent<Text>();
-        time.text = "Time : ";
+        time.text = "T i m e : ";
+        bird = player.GetComponent<BirdController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeElapsed += Time.deltaTime;
-        time.text = "Time : " + timeElapsed.ToString("F2");
+        if (!bird.finished)
+        {
+            timeElapsed += Time.deltaTime;
+            time.text = "T i m e : " + timeElapsed.ToString("F2");
+        }
+        
     }
 }

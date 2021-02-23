@@ -25,9 +25,11 @@ jobs:
           key: Library
 
       # Test
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v1.3
+      - uses: game-ci/unity-test-runner@v1.4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: /Rocket-Eagle
           unityVersion: 2019.2.11f1
 
       # Build

@@ -8,7 +8,9 @@ jobs:
       # Request manual activation file
       - name: Request manual activation file
         id: getManualLicenseFile
-        uses: game-ci/unity-request-manual-activation-file@v1.1
+        #uses: game-ci/unity-request-manual-activation-file@v1.1
+        uses: game-ci/unity-request-activation-file@v2.0-alpha-1
+
         with:
           unityVersion: 2019.2.11f1
           # Upload artifact (Unity_v20XX.X.XXXX.alf)

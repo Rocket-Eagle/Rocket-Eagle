@@ -5,7 +5,7 @@ on:
   push: { branches: [main] }
 
 env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_DECRYPTION_KEY_JOHN }}
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
   build:
@@ -28,13 +28,13 @@ jobs:
       - name: Run tests
         uses: game-ci/unity-test-runner@v1.3
         with:
-          unityVersion: 2020.2.2f1
+          unityVersion: 2019.2.11f1
 
       # Build
       - name: Build project
         uses: game-ci/unity-builder@v0.10
         with:
-          unityVersion: 2020.2.2f1
+          unityVersion: 2019.2.11f1
           targetPlatform: WebGL
 
       # Output

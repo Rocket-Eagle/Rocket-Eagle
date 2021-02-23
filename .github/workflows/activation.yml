@@ -11,10 +11,9 @@ jobs:
         uses: game-ci/unity-request-manual-activation-file@v1.1
         with:
           unityVersion: 2019.2.11f1
-          
           # Upload artifact (Unity_v20XX.X.XXXX.alf)
-        - name: Expose as artifact
-          uses: actions/upload-artifact@v1
-          with:
-            name: ${{ steps.getManualLicenseFile.outputs.filePath }}
-            path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ steps.getManualLicenseFile.outputs.filePath }}
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }}

@@ -8,6 +8,7 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
+#--------------------- BUILD JOB --------------------------
   buildForAndroid:
     name: buildingRocketEagle
     runs-on: ubuntu-latest
@@ -59,6 +60,7 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
           
+#--------------------- TESTING JOB --------------------------
   testForAndroid:
     name: testingRocketEagle
     runs-on: ubuntu-latest
@@ -104,7 +106,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          #projectPath: ${{ matrix.projectPath }}
+          projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           #testMode: ${{ matrix.testMode }}
           #artifactsPath: ${{ matrix.testMode }}-artifacts

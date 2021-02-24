@@ -67,8 +67,8 @@ jobs:
         with:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
-          testMode: ${{ matrix.testMode }}
-          artifactsPath: ${{ matrix.testMode }}-artifacts
+          #testMode: ${{ matrix.testMode }}
+          #artifactsPath: ${{ matrix.testMode }}-artifacts
           
       #------------ Test Output -------------
       - name: Upload a Test Artifact

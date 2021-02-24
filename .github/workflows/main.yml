@@ -29,7 +29,8 @@ jobs:
     steps:
       # Checkout
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
+        #uses: actions/checkout@v2
         with:
           lfs: true
 
@@ -61,11 +62,13 @@ jobs:
           
       #------------------ Test ------------------
       - name: Test project
-        uses: game-ci/unity-test-runner@v1.4
+        uses: game-ci/unity-test-runner@v2.0-alpha-2
+        #uses: game-ci/unity-test-runner@v1.4
+        #uses: webbertakken/unity-test-runner@v1.3
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          projectPath: ${{ matrix.projectPath }}
+          #projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
           #testMode: ${{ matrix.testMode }}
           #artifactsPath: ${{ matrix.testMode }}-artifacts

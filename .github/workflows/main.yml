@@ -8,14 +8,14 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  buildAndTestingForAndroid:
+  buildForAndroid:
     name: buildingRocketEagle
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         projectPath: 
-          - rocket_eagle/
+          - rocket_eagle
           #- Rocket-Eagle/rocket_eagle/
           #- Rocket-Eagle/
         unityVersion:
@@ -23,8 +23,6 @@ jobs:
           - 2019.2.11f1
         targetPlatform:
           - Android
-        testMode:
-          - playmode
         
     steps:
       # Checkout
@@ -60,6 +58,42 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
           
+  testForAndroid:
+    name: testingRocketEagle
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath: 
+          - rocket_eagle/
+          #- Rocket-Eagle/rocket_eagle/
+          #- Rocket-Eagle/
+        unityVersion:
+          #unityVersion: 2020.2.2f1
+          - 2019.2.11f1
+        targetPlatform:
+          - Android
+        testMode:
+          - playmode
+        
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+        #uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      # Cache
+      - name: Cache
+        uses: actions/cache@v2.1.4
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
+          
       #------------------ Test ------------------
       - name: Test project
         uses: game-ci/unity-test-runner@v2.0-alpha-2
@@ -79,3 +113,4 @@ jobs:
         with:
           name: Test results for ${{ matrix.testMode }}
           path: ${{ steps.tests.outputs.artifactsPath }}
+

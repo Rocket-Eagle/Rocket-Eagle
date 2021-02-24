@@ -43,35 +43,35 @@ jobs:
             Library-
 
       #------------------ Build ------------------
-      - name: Build project
-        uses: game-ci/unity-builder@v2.0-alpha-6
-        with:
-          unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.targetPlatform }}
+     # - name: Build project
+     #   uses: game-ci/unity-builder@v2.0-alpha-6
+     #   with:
+     #     unityVersion: ${{ matrix.unityVersion }}
+     #     targetPlatform: ${{ matrix.targetPlatform }}
 
 
       #------------ Build Output -------------
       #- uses: actions/upload-artifact@v1
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
-          
-      #------------------ Test ------------------
-      #-name: Test project
-      #  uses: game-ci/unity-test-runner@v1.4
-      #  env:
-      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      #  with:
-      #    projectPath: ${{ matrix.projectPath }}
-      #    unityVersion: ${{ matrix.unityVersion }}
-      #    testMode: ${{ matrix.testMode }}
-      #    artifactsPath: ${{ matrix.testMode }}-artifacts
-          
-      #------------ Test Output -------------
-      #- name: Upload a Test Artifact
+      #- name: Upload a Build Artifact
       #  uses: actions/upload-artifact@v2
       #  with:
-      #    name: Test results for ${{ matrix.testMode }}
-      #    path: ${{ steps.tests.outputs.artifactsPath }}
+      #    name: Build-${{ matrix.targetPlatform }}
+      #    path: build/${{ matrix.targetPlatform }}
+          
+      #------------------ Test ------------------
+      - name: Test project
+        uses: game-ci/unity-test-runner@v1.4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          testMode: ${{ matrix.testMode }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
+          
+      #------------ Test Output -------------
+      - name: Upload a Test Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test results for ${{ matrix.testMode }}
+          path: ${{ steps.tests.outputs.artifactsPath }}

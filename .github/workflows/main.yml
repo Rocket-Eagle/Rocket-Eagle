@@ -15,7 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         projectPath: 
-          - rocket_eagle
+          - ./
+          #- rocket_eagle
           #- Rocket-Eagle/rocket_eagle/
           #- Rocket-Eagle/
         unityVersion:

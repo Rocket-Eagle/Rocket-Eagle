@@ -45,20 +45,20 @@ jobs:
             Library-
 
       #------------------ Build ------------------
-     # - name: Build project
-     #   uses: game-ci/unity-builder@v2.0-alpha-6
-     #   with:
-     #     unityVersion: ${{ matrix.unityVersion }}
-     #     targetPlatform: ${{ matrix.targetPlatform }}
+      - name: Build project
+        uses: game-ci/unity-builder@v2.0-alpha-6
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
 
 
       #------------ Build Output -------------
-      #- uses: actions/upload-artifact@v1
-      #- name: Upload a Build Artifact
-      #  uses: actions/upload-artifact@v2
-      #  with:
-      #    name: Build-${{ matrix.targetPlatform }}
-      #    path: build/${{ matrix.targetPlatform }}
+      - uses: actions/upload-artifact@v1
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
           
       #------------------ Test ------------------
       - name: Test project

@@ -32,14 +32,14 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           #projectPath: /Rocket-Eagle
-          unityVersion: 2019.2.11f1
+          unityVersion: 2020.2.2f1
 
       # Build
       - name: Build project
         #uses: game-ci/unity-builder@v0.10
         uses: game-ci/unity-builder@v2.0-alpha-6
         with:
-          unityVersion: 2019.2.11f1
+          unityVersion: 2020.2.2f1
           targetPlatform: Android
 
       # Output

@@ -8,14 +8,15 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  build:
-    name: Build my project ✨
+  buildAndTestingForAndroid:
+    name: buildingRocketEagle
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         projectPath: 
-          - Rocket-Eagle
+          - Rocket-Eagle/rocket_eagle/
+          #- Rocket-Eagle/
         unityVersion:
           #unityVersion: 2020.2.2f1
           - 2019.2.11f1
@@ -41,17 +42,7 @@ jobs:
             Library-${{ matrix.projectPath }}-
             Library-
 
-      # Test
-      #- uses: game-ci/unity-test-runner@v1.4
-      #  env:
-      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      #  with:
-      #    projectPath: ${{ matrix.projectPath }}
-      #    unityVersion: ${{ matrix.unityVersion }}
-      #    testMode: ${{ matrix.testMode }}
-      #    artifactsPath: ${{ matrix.testMode }}-artifacts
-
-      # Build
+      #------------------ Build ------------------
       - name: Build project
         uses: game-ci/unity-builder@v2.0-alpha-6
         with:
@@ -59,7 +50,7 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
 
 
-      #------------ Output -------------
+      #------------ Build Output -------------
       #- uses: actions/upload-artifact@v1
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
@@ -67,6 +58,18 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
           
+      #------------------ Test ------------------
+      #-name: Test project
+      #  uses: game-ci/unity-test-runner@v1.4
+      #  env:
+      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      #  with:
+      #    projectPath: ${{ matrix.projectPath }}
+      #    unityVersion: ${{ matrix.unityVersion }}
+      #    testMode: ${{ matrix.testMode }}
+      #    artifactsPath: ${{ matrix.testMode }}-artifacts
+          
+      #------------ Test Output -------------
       #- name: Upload a Test Artifact
       #  uses: actions/upload-artifact@v2
       #  with:

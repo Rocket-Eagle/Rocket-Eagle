@@ -15,7 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         projectPath: 
-          - Rocket-Eagle/rocket_eagle/
+          - rocket_eagle/
+          #- Rocket-Eagle/rocket_eagle/
           #- Rocket-Eagle/
         unityVersion:
           #unityVersion: 2020.2.2f1

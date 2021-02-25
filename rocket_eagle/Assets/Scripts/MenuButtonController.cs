@@ -24,6 +24,7 @@ public class MenuButtonController : MonoBehaviour {
 
 	/*
 	 * play the sound (once) when the user hits the button
+	 * sound is set in unity
 	 */
 	public void playSelectionSound(AudioClip audioClip)
     {

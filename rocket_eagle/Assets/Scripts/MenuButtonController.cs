@@ -11,22 +11,22 @@ public class MenuButtonController : MonoBehaviour {
 	public bool disableOnce;
 
 
-	void Start () 
+	void Start()
 	{
 		audioSource = GetComponent<AudioSource>();
 	}
-	
+
 	// Update is called once per frame
-	void Update () 
-	{		
-		
+	void Update()
+	{
+
 	}
 
 	/*
 	 * play the sound (once) when the user hits the button
 	 */
 	public void playSelectionSound(AudioClip audioClip)
-    {
+	{
 		if (!disableOnce)
 		{
 			audioSource.PlayOneShot(audioClip);
@@ -36,5 +36,11 @@ public class MenuButtonController : MonoBehaviour {
 			disableOnce = false;
 		}
 	}
+
+	public void quitGame()
+    {
+		Application.Quit();
+	}
+
 
 }

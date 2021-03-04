@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 
 public class MenuButtonController : MonoBehaviour {
@@ -35,6 +36,17 @@ public class MenuButtonController : MonoBehaviour {
 		{
 			disableOnce = false;
 		}
+	}
+
+	public void goToMainMenu()
+    {
+		SceneManager.LoadScene("MainMenu");
+	}
+
+	public void playAgain()
+    {
+		//TODO: find a way to dynamically reload this current scene
+		SceneManager.LoadScene("Field");
 	}
 
 	public void quitGame()

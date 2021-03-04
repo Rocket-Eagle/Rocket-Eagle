@@ -77,7 +77,7 @@ public class BirdController : MonoBehaviour
         {
             if (lap == 3)
             {
-                SceneManager.LoadScene("SinglePlayerEnding");
+                SceneManager.LoadScene("FinishSceneSP");
                 finished = true;
             }
             else

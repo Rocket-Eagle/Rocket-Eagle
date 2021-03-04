@@ -2228,7 +2228,6 @@ GameObject:
   - component: {fileID: 576725666}
   - component: {fileID: 576725665}
   - component: {fileID: 576725668}
-  - component: {fileID: 576725664}
   m_Layer: 5
   m_Name: SkinSelection
   m_TagString: Untagged
@@ -2236,18 +2235,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &576725664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576725663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a29aad2ecba534aa018b1f4bba8cb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &576725665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2317,6 +2304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb6d5e1de6dad543a2d2405c62fbd6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleSkins: []
 --- !u!1 &635444590
 GameObject:
   m_ObjectHideFlags: 0

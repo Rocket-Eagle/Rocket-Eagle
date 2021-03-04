@@ -6,13 +6,23 @@ using UnityEngine.UI;
 
 public class PurchaseSkin : MonoBehaviour
 {
-    [SerializeField] Skins[] possibleSkins;
+    [SerializeField] public Skins[] possibleSkins;
 
     private int currentSelected;
+
+    public void Start()
+    {
+        for(int i = 0; i < possibleSkins.Length; i++)
+        {
+
+        }
+    }
 
     public void PreformPurchase()
     {
 
+        //call the save skins function
+        SaveGameData.SaveSkins(possibleSkins);
     }
 
     /*

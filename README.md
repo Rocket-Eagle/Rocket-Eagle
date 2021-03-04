@@ -27,3 +27,24 @@ Links to the Wiki Pages:
 - Download Unity Hub and install Unity version 2020.2.2f1 (this is our agreed upon version and we do not guarantee that other versions will work)
 - Download the Rocket Eagle file from the main branch and add this to the Unity Hub and open it.
 - You should now be able to see the project and grade us
+
+# Work breakdown:
+Sprint 2
+- Create a working game for single player including
+- Start/loading screen 
+- Menu system
+- A level that can be finished
+
+Sprint 3
+- Incorporate Multiplayer
+- Create (more) levels
+
+Sprint 4
+- Incorporate high score feature
+- Add different levels?
+- Currency
+- Finish multiplayer
+- Add items and item interaction
+- Skins
+
+

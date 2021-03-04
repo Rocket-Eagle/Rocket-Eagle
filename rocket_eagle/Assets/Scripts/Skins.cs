@@ -9,7 +9,6 @@ using System.Linq;
  * Class that holds a skin (yes, only one) and the data that goes along with it
  */
 
-[Serializable]
 public class Skins
 {
     //ALL SKIN IMAGES MUST RESIDE IN: Assets/Resources/Skins
@@ -24,6 +23,19 @@ public class Skins
     private bool isPurchased;
 
     /*
+     * construct a skin using a SkinData Object
+     */
+    public Skins(SkinData skinData)
+    {
+        imageName = skinData.GetPreviewImageName();
+        cost = skinData.GetCost();
+        isPurchased = skinData.GetIsPurchased();
+
+        //manually load in the image 
+        loadSkinImage(imageName);
+    }
+
+    /*
      * constructor to load in the skin data and then manually load the image
      */
     public Skins(string theImageName, uint theCost, bool isPurchased)
@@ -33,10 +45,7 @@ public class Skins
         this.isPurchased = isPurchased;
 
         //manually load in the image 
-        //ALL SKIN IMAGES MUST RESIDE IN: Assets/Resources/Skins
-        string skinPath = SKIN_PATH + theImageName;
-        UnityEngine.Object theImage = Resources.Load(skinPath, typeof(Sprite));
-        previewImage = theImage as Image;
+        loadSkinImage(imageName);
     }
 
     /*
@@ -48,6 +57,34 @@ public class Skins
         imageName = thePreviewImage.name;
         cost = theCost;
         this.isPurchased = isPurchased;
+    }
+
+    private void loadSkinImage(string theImageName)
+    {
+        //ALL SKIN IMAGES MUST RESIDE IN: Assets/Resources/Skins
+        string skinPath = SKIN_PATH + theImageName;
+        UnityEngine.Object theImage = Resources.Load(skinPath, typeof(Sprite));
+        previewImage = theImage as Image;
+    }
+
+    /*
+     * datamizes the skins
+     * that is, only basic primatives can be stored in a binary file (easily) so we have to take the
+     * data that makes up a skin and convert it to primatives so we can save the data
+     */
+    public SkinData datamize()
+    {
+        return new SkinData(this);
+    }
+
+    /*
+     * preform a 'purchase' (unlock the skin so that it can be selected)
+     * this function does not check that there is enough BirdCoin to unlock
+     * the skin since this class does not have access to the wallet
+     */
+    public void unlockSkin()
+    {
+        isPurchased = true;
     }
 
     public uint GetCost()

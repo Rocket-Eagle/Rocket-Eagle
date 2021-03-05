@@ -90,6 +90,8 @@ public class BirdController : MonoBehaviour
         {
             if (lap == maxLaps)
             {
+                SceneManager.LoadScene("FinishSceneSP");
+
                 finished = true;
             }
             else

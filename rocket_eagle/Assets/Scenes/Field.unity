@@ -1109,6 +1109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34eb8807f37b1424ea50bb7ba9179d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteArray:
+  - {fileID: 21300000, guid: 4b2c7c6dc48d70a4ebef9494d6919b8f, type: 3}
+  - {fileID: 21300000, guid: 5021295cb2630284f805096f21fbb6cb, type: 3}
+  - {fileID: 21300000, guid: 2aeb0dead0e183845a113d149835d91c, type: 3}
   startingVelocity: {x: 5, y: 0}
   penalty: {x: 5, y: 0}
   horizontalAcceleration: {x: 1, y: 0}
@@ -1119,7 +1123,10 @@ MonoBehaviour:
   recovering: 0
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   finished: 0
+  finishDuration: 3
+  finishTimer: 0
   lap: 1
+  maxLaps: 3
 --- !u!50 &734248939
 Rigidbody2D:
   serializedVersion: 4

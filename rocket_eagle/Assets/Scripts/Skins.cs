@@ -15,7 +15,7 @@ public class Skins
     private const string SKIN_PATH = "Skins/";
 
     //It sounds like you can't save Images, so we save the skin data (with the image name as the id) and then save that to use
-    private Image previewImage;
+    private Sprite previewImage;
 
     //save the data needed
     private string imageName;
@@ -51,7 +51,7 @@ public class Skins
     /*
      * constructor to load in the skin data using an image
      */
-    public Skins(Image thePreviewImage, uint theCost, bool isPurchased)
+    public Skins(Sprite thePreviewImage, uint theCost, bool isPurchased)
     {
         previewImage = thePreviewImage;
         imageName = thePreviewImage.name;
@@ -64,14 +64,30 @@ public class Skins
         //Assets/Resources/Skins/bird.png
         //ALL SKIN IMAGES MUST RESIDE IN: Assets/Resources/Skins
         string skinPath = SKIN_PATH + theImageName;
-        Debug.Log("Loaded wanted to load image with name" + theImageName + " in " + skinPath);
+        Debug.Log("Loaded wanted to load image in " + skinPath);
 
-        UnityEngine.Object theImage = Resources.Load(skinPath, typeof(Image));
+        /*
+        UnityEngine.Object[] allImages = Resources.LoadAll(SKIN_PATH, typeof(Sprite));
+
+        Debug.Log("All images found: " + allImages.Length);
+        for(int i = 0; i < allImages.Length; i++)
+        {
+            Debug.Log("I:" + i + "Image name:" + ((Sprite)allImages[i]).name);
+        }
+        */
+        //UnityEngine.Object theImage = Resources.Load("Skins/bird", typeof(Image));
+
+        //HOLY COW! THIS IS SO DUMB. IF YOU TRY TO DO THIS WITH AN IMAGE, YOU DON'T GET ANY COMPILE ERRORS AND THE ONLY RUNTIME ERROR YOU GET IS A NULL
+        //THIS IS SO DUMB
+        UnityEngine.Object theImage = Resources.Load(skinPath, typeof(Sprite));
+        
         if (theImage == null)
         {
             Debug.Log("DIDN'T FIND IMAGE");
         }
-        previewImage = theImage as Image;
+        previewImage = (theImage as Sprite);
+        
+        //previewImage = (Sprite)allImages[0];
         Debug.Log("Image name:" + previewImage.name);
        
     }
@@ -111,7 +127,7 @@ public class Skins
         return imageName;
     }
 
-    public UnityEngine.Object GetPreviewImage()
+    public Sprite GetPreviewImage()
     {
         return previewImage;
     }

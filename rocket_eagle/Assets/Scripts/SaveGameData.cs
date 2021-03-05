@@ -20,14 +20,7 @@ public static class SaveGameData
      */
     public static void SaveSkins(Skins[] allSkins)
     {
-        Debug.Log("In save skins");
         SkinData[] allSkinData = SerializeSkins(allSkins);
-
-        Debug.Log("In after serialization");
-        for (int i = 0; i < allSkinData.Length; i++)
-        {
-            Debug.Log("Skin:" + i + " name:" + allSkinData[i].GetPreviewImageName());
-        }
 
         if (allSkinData == null)
         {

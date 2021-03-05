@@ -4,11 +4,13 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class PurchaseSkin : MonoBehaviour
 {
 
     [SerializeField] public Skins[] possibleSkins;
     [SerializeField] public Text bcWalletDisplay;
+    [SerializeField] public Image selectionScreen;
     [SerializeField] private uint birdCoinWallet = 0;
 
     //var to keep track of whether we are currently loading data
@@ -21,6 +23,7 @@ public class PurchaseSkin : MonoBehaviour
     public void Start()
     {
         //TEMP: MAKE A SKIN SO THERE IS SOMETHING TO LOAD
+        /*
         possibleSkins = new Skins[3];
         possibleSkins[0] = new Skins("bird", 100, false);
         possibleSkins[1] = new Skins("blueBird", 150, false);
@@ -30,8 +33,11 @@ public class PurchaseSkin : MonoBehaviour
         
         //TEMP: MAKE A coin SO THERE IS SOMETHING TO LOAD
         SaveGameData.SavePlayerCoin(250);
+        */
 
         onLoad = true;
+
+        currentSelected = 0;
 
         //load in the skins data to know what has already been purchased
         possibleSkins = SaveGameData.LoadSkins();
@@ -40,11 +46,13 @@ public class PurchaseSkin : MonoBehaviour
             //this is either an error, or a onetime initialization
             Debug.LogError("Error, loaded in zero skin objects!");
         }
+        /*
         Debug.Log("After Loading skins:");
         for (int i = 0; i < possibleSkins.Length; i++)
         {
             Debug.Log("Skin:" + i + " name:" + possibleSkins[i].GetPreviewImage().name);
         }
+        */
 
         //load in the players BirdCoin wallet to know what kind of money they have
         birdCoinWallet = SaveGameData.LoadPlayerCoin();
@@ -202,7 +210,17 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ReloadPreviewImage()
     {
-        Sprite newSprite = possibleSkins[currentSelected].GetPreviewImage() as Sprite;
-        GetComponent<Image>().sprite = newSprite;
+        Debug.Log("Trying to reload the image");
+        Debug.Log("Trying to load image at skin:" + currentSelected);
+        for (int i = 0; i < possibleSkins.Length; i++)
+        {
+            Debug.Log("Skin:" + i + " name:" + possibleSkins[i].GetPreviewImage().ToString());
+        }
+
+        Sprite newSprite = possibleSkins[currentSelected].GetPreviewImage();
+
+        Debug.Log("Sprint name:" + newSprite.name);
+
+        selectionScreen.sprite = newSprite;
     }
 }

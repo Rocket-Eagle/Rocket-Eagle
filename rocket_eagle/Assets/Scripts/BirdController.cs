@@ -19,8 +19,11 @@ public class BirdController : MonoBehaviour
     public bool recovering = false;
     public Quaternion originalRotation;
     public bool finished = false;
+    public float finishDuration = 3.0f;
+    public float finishTimer = 0.0f;
 
     public int lap = 1;
+    public int maxLaps = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,16 @@ public class BirdController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (finished == true)
+        {
+            rigidBody.velocity = new Vector2(1, 0);
+            finishTimer += Time.deltaTime;
+            if (finishTimer >= finishDuration)
+            {
+                SceneManager.LoadScene("SinglePlayerEnding");
+            }
+        }
         
         if(recovering == true)
         {
@@ -75,9 +88,10 @@ public class BirdController : MonoBehaviour
         }
         if (col.gameObject.tag == "Finish")
         {
-            if (lap == 3)
+            if (lap == maxLaps)
             {
                 SceneManager.LoadScene("FinishSceneSP");
+
                 finished = true;
             }
             else

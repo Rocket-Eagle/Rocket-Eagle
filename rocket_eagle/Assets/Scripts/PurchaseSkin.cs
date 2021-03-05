@@ -21,15 +21,15 @@ public class PurchaseSkin : MonoBehaviour
     public void Start()
     {
         //TEMP: MAKE A SKIN SO THERE IS SOMETHING TO LOAD
-        /*
-        Skins tempSkin = new Skins("bird", 100, false);
-        Skins[] temp = new Skins[1];
-        temp[0] = tempSkin;
-        possibleSkins = temp;
+        possibleSkins = new Skins[3];
+        possibleSkins[0] = new Skins("bird", 100, false);
+        possibleSkins[1] = new Skins("blueBird", 150, false);
+        possibleSkins[2] = new Skins("fireBird", 200, false);
+
         SaveGameData.SaveSkins(possibleSkins);
-        */
+        
         //TEMP: MAKE A coin SO THERE IS SOMETHING TO LOAD
-        //SaveGameData.SavePlayerCoin(250);
+        SaveGameData.SavePlayerCoin(250);
 
         onLoad = true;
 
@@ -39,7 +39,11 @@ public class PurchaseSkin : MonoBehaviour
         {
             //this is either an error, or a onetime initialization
             Debug.LogError("Error, loaded in zero skin objects!");
-            
+        }
+        Debug.Log("After Loading skins:");
+        for (int i = 0; i < possibleSkins.Length; i++)
+        {
+            Debug.Log("Skin:" + i + " name:" + possibleSkins[i].GetPreviewImage().name);
         }
 
         //load in the players BirdCoin wallet to know what kind of money they have
@@ -73,6 +77,17 @@ public class PurchaseSkin : MonoBehaviour
 
             }
         }
+    }
+
+    /*
+     * save all the current data
+     */
+    public void saveData()
+    {
+        Debug.Log("Saving game data!");
+        SaveGameData.SavePlayerCoin(birdCoinWallet);
+        SaveGameData.SaveSkins(possibleSkins);
+        Debug.Log("Game data saved");
     }
 
     /*
@@ -187,6 +202,7 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ReloadPreviewImage()
     {
-        GetComponent<Image>().sprite = possibleSkins[currentSelected].GetPreviewImage() as Sprite;
+        Sprite newSprite = possibleSkins[currentSelected].GetPreviewImage() as Sprite;
+        GetComponent<Image>().sprite = newSprite;
     }
 }

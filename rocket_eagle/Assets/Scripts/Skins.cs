@@ -12,7 +12,7 @@ using System.Linq;
 public class Skins
 {
     //ALL SKIN IMAGES MUST RESIDE IN: Assets/Resources/Skins
-    private const string SKIN_PATH = "Resources/Skins/";
+    private const string SKIN_PATH = "Skins/";
 
     //It sounds like you can't save Images, so we save the skin data (with the image name as the id) and then save that to use
     private Image previewImage;
@@ -61,10 +61,19 @@ public class Skins
 
     private void loadSkinImage(string theImageName)
     {
+        //Assets/Resources/Skins/bird.png
         //ALL SKIN IMAGES MUST RESIDE IN: Assets/Resources/Skins
         string skinPath = SKIN_PATH + theImageName;
-        UnityEngine.Object theImage = Resources.Load(skinPath, typeof(Sprite));
+        Debug.Log("Loaded wanted to load image with name" + theImageName + " in " + skinPath);
+
+        UnityEngine.Object theImage = Resources.Load(skinPath, typeof(Image));
+        if (theImage == null)
+        {
+            Debug.Log("DIDN'T FIND IMAGE");
+        }
         previewImage = theImage as Image;
+        Debug.Log("Image name:" + previewImage.name);
+       
     }
 
     /*

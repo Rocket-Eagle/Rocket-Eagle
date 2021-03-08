@@ -64,18 +64,6 @@ public class Skins
         //Assets/Resources/Skins/bird.png
         //ALL SKIN IMAGES MUST RESIDE IN: Assets/Resources/Skins
         string skinPath = SKIN_PATH + theImageName;
-        Debug.Log("Loaded wanted to load image in " + skinPath);
-
-        /*
-        UnityEngine.Object[] allImages = Resources.LoadAll(SKIN_PATH, typeof(Sprite));
-
-        Debug.Log("All images found: " + allImages.Length);
-        for(int i = 0; i < allImages.Length; i++)
-        {
-            Debug.Log("I:" + i + "Image name:" + ((Sprite)allImages[i]).name);
-        }
-        */
-        //UnityEngine.Object theImage = Resources.Load("Skins/bird", typeof(Image));
 
         //HOLY COW! THIS IS SO DUMB. IF YOU TRY TO DO THIS WITH AN IMAGE, YOU DON'T GET ANY COMPILE ERRORS AND THE ONLY RUNTIME ERROR YOU GET IS A NULL
         //THIS IS SO DUMB
@@ -86,10 +74,6 @@ public class Skins
             Debug.Log("DIDN'T FIND IMAGE");
         }
         previewImage = (theImage as Sprite);
-        
-        //previewImage = (Sprite)allImages[0];
-        Debug.Log("Image name:" + previewImage.name);
-       
     }
 
     /*
@@ -130,5 +114,15 @@ public class Skins
     public Sprite GetPreviewImage()
     {
         return previewImage;
+    }
+
+    public bool Equals(Skins skin1)
+    {
+        if(skin1.imageName.Equals(imageName) && skin1.isPurchased == isPurchased && skin1.cost == cost)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

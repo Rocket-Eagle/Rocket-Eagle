@@ -123,15 +123,7 @@ public static class SaveGameData
             return null;
         }
 
-        SkinData skinData;
-
-        if (theSkins == null)
-        {
-            Debug.LogError("ERROR, there is a null skin in theSkins[]");
-            return null;
-        }
-
-        skinData = theSkins.datamize();
+        SkinData skinData = theSkins.datamize();
 
         return skinData;
     }

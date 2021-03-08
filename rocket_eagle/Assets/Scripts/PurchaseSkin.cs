@@ -43,19 +43,9 @@ public class PurchaseSkin : MonoBehaviour
         {
             //this is either an error, or a onetime initialization
             Debug.LogError("Error, loaded in zero skin objects!");
+            reSaveSkins();
+            Debug.Log("Resaving skins, if you see this message again, there is a problem");
         }
-        /*
-        Debug.Log("After Loading skins:");
-        for (int i = 0; i < possibleSkins.Length; i++)
-        {
-            Debug.Log("Skin:" + i + " name:" + possibleSkins[i].GetPreviewImage().name);
-        }
-        */
-
-        /*
-        purchaseButton = GameObject.Find("Purchase").GetComponent<GameObject>();
-        selectButton = GameObject.Find("Select").GetComponent<GameObject>();
-        */
 
         //load in the players BirdCoin wallet to know what kind of money they have
         birdCoinWallet = SaveGameData.LoadPlayerCoin();
@@ -282,6 +272,11 @@ public class PurchaseSkin : MonoBehaviour
         selectionScreen.sprite = newSprite;
     }
 
+    /*
+     * This makes sure the approriate button shows up when cycling through the skins
+     * Shows select button if the skin is purchased
+     * shows the buy button if the skin is not purchased
+     */
     private void enableButton()
     {
         if(possibleSkins[currentSelected].GetIsPurchased())
@@ -305,6 +300,7 @@ public class PurchaseSkin : MonoBehaviour
      *      - adding new skins
      *      - changing the price of a skin (doesn't handle checking if the skin is purchased)
      *      - resetting purchased skin
+     *      - run on first time startup
      *      
      */
     private void reSaveSkins()
@@ -319,7 +315,6 @@ public class PurchaseSkin : MonoBehaviour
         SaveGameData.SaveSkins(possibleSkins);
         
         //TEMP: MAKE A coin SO THERE IS SOMETHING TO LOAD
-        SaveGameData.SavePlayerCoin(250);
-        
+        SaveGameData.SavePlayerCoin(0);
     }
 }

@@ -11,7 +11,8 @@ using UnityEngine;
 
 public static class SaveGameData
 {
-    private static string SKIN_FILE = "/SavedSkins.saves";
+    private static string SELECTED_SKIN_FILE = "/SelectedSkin.saves";
+    private static string ALL_SKINS_FILE = "/SavedSkins.saves";
     private static string SKIN_COUNT_FILE = "/SavedSkinsCount.saves";
     private static string PLAYER_COIN_FILE = "/SavedCoin.saves";
 
@@ -33,7 +34,7 @@ public static class SaveGameData
 
         //setup the stuff for the binary writer
         BinaryFormatter formatter = new BinaryFormatter();
-        string skinPath = Application.persistentDataPath + SKIN_FILE;
+        string skinPath = Application.persistentDataPath + ALL_SKINS_FILE;
         FileStream stream = new FileStream(skinPath, FileMode.Create);
 
         //go through all the skins and save them
@@ -55,7 +56,7 @@ public static class SaveGameData
 
         Debug.Log("Array size loaded in is:" + arraySize);
 
-        string skinPath = Application.persistentDataPath + SKIN_FILE;
+        string skinPath = Application.persistentDataPath + ALL_SKINS_FILE;
         if(File.Exists(skinPath))
         {
             //figure out a way to fix this?
@@ -83,6 +84,10 @@ public static class SaveGameData
         }
     }
 
+    /*
+     * Serialize a list of skins (saving image data is both hard and redudent since we already have the images)
+     * 
+     */
     public static SkinData[] SerializeSkins(Skins[] theSkins)
     {
         if(theSkins == null)
@@ -103,6 +108,30 @@ public static class SaveGameData
 
             skinData[i] = theSkins[i].datamize();
         }
+
+        return skinData;
+    }
+
+    /*
+     * Serialize a single skin
+     */
+    public static SkinData SerializeSkins(Skins theSkins)
+    {
+        if (theSkins == null)
+        {
+            Debug.LogError("ERROR, Skins[] is null");
+            return null;
+        }
+
+        SkinData skinData;
+
+        if (theSkins == null)
+        {
+            Debug.LogError("ERROR, there is a null skin in theSkins[]");
+            return null;
+        }
+
+        skinData = theSkins.datamize();
 
         return skinData;
     }
@@ -188,6 +217,49 @@ public static class SaveGameData
         {
             Debug.LogError("BirdCoin save file not found in:" + path);
             return 0;
+        }
+    }
+
+
+    /*
+     * save the currently selected skin the player is using
+     * This file will be read in BirdController
+     */
+    public static void SaveSelectedSkin(Skins theSelectedSkin)
+    {
+        //setup the stuff for the binary writer
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + SELECTED_SKIN_FILE;
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        SkinData ss = SerializeSkins(theSelectedSkin);
+
+        formatter.Serialize(stream, ss);
+        stream.Close();
+    }
+
+    /*
+     * load the currently selected skin by the player
+     */
+    public static Skins LoadSelectedSkin()
+    {
+        string path = Application.persistentDataPath + SELECTED_SKIN_FILE;
+        if (File.Exists(path))
+        {
+            //setup the stuff for the binary reader
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            SkinData ss = (SkinData)formatter.Deserialize(stream);
+
+            stream.Close();
+
+            return new Skins(ss);
+        }
+        else
+        {
+            Debug.LogError("Selected save file not found in:" + path);
+            return null;
         }
     }
 }

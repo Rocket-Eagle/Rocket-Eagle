@@ -24,6 +24,9 @@ public class SkinData
         return cost;
     }
 
+    /*
+     * returns the isPurchased variable
+     */
     public bool GetIsPurchased()
     {
         return isPurchased;

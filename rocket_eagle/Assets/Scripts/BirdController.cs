@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class BirdController : MonoBehaviour
 {
 
-    private SpriteRenderer spriteRenderer;
-    public Sprite[] spriteArray;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] public Sprite[] spriteArray;
 
     Rigidbody2D rigidBody;
     public Vector2 startingVelocity = new Vector2(5,0);
@@ -35,6 +35,10 @@ public class BirdController : MonoBehaviour
         rigidBody.velocity = startingVelocity;
         originalRotation = transform.rotation;
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //get the sprite from the file
+        Skins selectedSkin = SaveGameData.LoadSelectedSkin();
+        spriteRenderer.sprite = selectedSkin.GetPreviewImage();
     }
 
     // Update is called once per frame
@@ -136,19 +140,4 @@ public class BirdController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, originalRotation, Time.time * rotationSpeed);
 
     }
-
-
-    /*
-     * change the sprite being used
-     * takes in an integer corresponding to the new sprite's position in the sprite array
-     * if the integer isn't in the array it will change to the default bird sprite
-    */
-    public void ChangeSprite(int newSpriteNum)
-    {
-        if ( newSpriteNum < spriteArray.Length) 
-            spriteRenderer.sprite = spriteArray[newSpriteNum];
-        else
-            spriteRenderer.sprite = spriteArray[0];
-    }
-
 }

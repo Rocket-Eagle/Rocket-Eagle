@@ -21,6 +21,7 @@ public class PurchaseSkin : MonoBehaviour
 
     private string successMessage = "Y o u   P u r c h a s e d   T h e   {0}\nS k i n";
     private string failedMessage = "S o r r y,   Y o u   D o n ' t   H a v e   E n o u g h   B i r d C o i n";
+    private string selectingMessage = "S e l e c t e d   {0}   S k i n";
     private const float MESSAGE_TIME = 5;
 
     //var to keep track of whether we are currently loading data
@@ -90,8 +91,6 @@ public class PurchaseSkin : MonoBehaviour
 
                 //show a message to the user
                 StartCoroutine(ShowSuccessMessage(MESSAGE_TIME));
-
-                
             }
             else
             {
@@ -99,6 +98,18 @@ public class PurchaseSkin : MonoBehaviour
                 StartCoroutine(ShowFailedMessage(MESSAGE_TIME));
             }
         }
+    }
+
+    /*
+     * show the successful purchase message for a short time
+     */
+    private IEnumerator ShowSelectMessage(float delay)
+    {
+        purchaseMessage.SetActive(true);
+        purchaseMessage.GetComponent<Text>().text = String.Format(selectingMessage, possibleSkins[currentSelected].GetPreviewImageName());
+        yield return new WaitForSeconds(delay);
+        purchaseMessage.SetActive(false);
+
     }
 
     /*
@@ -190,6 +201,10 @@ public class PurchaseSkin : MonoBehaviour
     public void updatePlayerSkin()
     {
         Debug.Log("Selecting this player skin");
+
+        //save the currently selected skin, this is going to be loaded in the BirdController class
+        SaveGameData.SaveSelectedSkin(possibleSkins[currentSelected]);
+        StartCoroutine(ShowSelectMessage(MESSAGE_TIME));
     }
 
     /*
@@ -201,7 +216,7 @@ public class PurchaseSkin : MonoBehaviour
         possibleSkins[theSkinIndex].unlockSkin();
 
         //save the game data
-        SaveGameData.SaveSkins(possibleSkins);
+        saveData();
     }
 
     /*

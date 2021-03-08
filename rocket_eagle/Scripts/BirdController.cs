@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Mirror;
 [RequireComponent(typeof(Rigidbody2D))]
-public class BirdController : MonoBehaviour
+public class BirdController : NetworkBehaviour
 {
 
     Rigidbody2D rigidBody;

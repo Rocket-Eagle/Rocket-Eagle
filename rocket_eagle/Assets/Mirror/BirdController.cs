@@ -25,12 +25,21 @@ public class BirdController : NetworkBehaviour
     public int lap = 1;
     public int maxLaps = 3;
 
+    public int topBoundary = 5;
+    public int bottomBoundary = -5;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.velocity = startingVelocity;
         originalRotation = transform.rotation;
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        gameObject.name = "LocalBird";
     }
 
     // Update is called once per frame
@@ -63,9 +72,26 @@ public class BirdController : NetworkBehaviour
                 Reset();
                 recoveryTimer = 0.0f;
             }
+        } else
+        {
+            // implement boundaries
+            if (transform.position.y > topBoundary)
+            {
+                transform.position = new Vector2(transform.position.x, topBoundary);
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+            }
+
+            if (transform.position.y < bottomBoundary)
+            {
+                transform.position = new Vector2(transform.position.x, bottomBoundary);
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+            }
+
         }
 
-        
+
+
+
         if (rigidBody.velocity.x < startingVelocity.x) {
             rigidBody.velocity = rigidBody.velocity + horizontalAcceleration * Time.deltaTime;
             

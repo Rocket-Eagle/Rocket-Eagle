@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -136,6 +136,8 @@ MonoBehaviour:
   finishTimer: 0
   lap: 1
   maxLaps: 3
+  topBoundary: 5
+  bottomBoundary: -5
 --- !u!61 &346685356537447161
 BoxCollider2D:
   m_ObjectHideFlags: 0

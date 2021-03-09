@@ -15,15 +15,14 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        player = GameObject.Find("bird");
         time = GetComponent<Text>();
-        time.text = "T i m e : ";
-        bird = player.GetComponent<BirdController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        player = GameObject.Find("LocalBird");
+        bird = player.GetComponent<BirdController>();
         if (!bird.finished)
         {
             timeElapsed += Time.deltaTime;

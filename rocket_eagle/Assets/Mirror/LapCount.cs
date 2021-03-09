@@ -14,16 +14,14 @@ public class LapCount : MonoBehaviour
     BirdController bird;
     void Start()
     {
-        player = GameObject.Find("bird");
         lap = GetComponent<Text>();
-        lap.text = "L A P : ";
-        bird = player.GetComponent<BirdController>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        player = GameObject.Find("LocalBird");
+        bird = player.GetComponent<BirdController>();
         lap.text = "L A P : " + bird.lap.ToString();
     }
 }

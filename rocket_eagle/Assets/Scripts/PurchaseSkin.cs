@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using System;
 
+[RequireComponent(typeof(Image))]
 public class PurchaseSkin : MonoBehaviour
 {
 
     [SerializeField] public Skins[] possibleSkins;
     [SerializeField] public Text bcWalletDisplay;
+    [SerializeField] public Image selectionScreen;
     [SerializeField] private uint birdCoinWallet = 0;
+
+    [SerializeField] private GameObject selectButton;
+    [SerializeField] private GameObject purchaseButton;
+
+    [SerializeField] private GameObject purchaseMessage;
+
+    private string successMessage = "Y o u   P u r c h a s e d   T h e   {0}\nS k i n";
+    private string failedMessage = "S o r r y,   Y o u   D o n ' t   H a v e   E n o u g h   B i r d C o i n";
+    private string selectingMessage = "S e l e c t e d   {0}   S k i n";
+    private const float MESSAGE_TIME = 5;
 
     //var to keep track of whether we are currently loading data
     private bool onLoad = false;
@@ -20,18 +33,9 @@ public class PurchaseSkin : MonoBehaviour
      */
     public void Start()
     {
-        //TEMP: MAKE A SKIN SO THERE IS SOMETHING TO LOAD
-        possibleSkins = new Skins[3];
-        possibleSkins[0] = new Skins("bird", 100, false);
-        possibleSkins[1] = new Skins("blueBird", 150, false);
-        possibleSkins[2] = new Skins("fireBird", 200, false);
-
-        SaveGameData.SaveSkins(possibleSkins);
-        
-        //TEMP: MAKE A coin SO THERE IS SOMETHING TO LOAD
-        SaveGameData.SavePlayerCoin(250);
-
         onLoad = true;
+
+        currentSelected = 0;
 
         //load in the skins data to know what has already been purchased
         possibleSkins = SaveGameData.LoadSkins();
@@ -39,15 +43,16 @@ public class PurchaseSkin : MonoBehaviour
         {
             //this is either an error, or a onetime initialization
             Debug.LogError("Error, loaded in zero skin objects!");
-        }
-        Debug.Log("After Loading skins:");
-        for (int i = 0; i < possibleSkins.Length; i++)
-        {
-            Debug.Log("Skin:" + i + " name:" + possibleSkins[i].GetPreviewImage().name);
+            reSaveSkins();
+            Debug.Log("Resaving skins, if you see this message again, there is a problem");
         }
 
         //load in the players BirdCoin wallet to know what kind of money they have
         birdCoinWallet = SaveGameData.LoadPlayerCoin();
+        updateBirdcoinDisplay();
+
+        //make sure that the correct button is being displayed
+        enableButton();
 
         onLoad = false;
     }
@@ -70,13 +75,54 @@ public class PurchaseSkin : MonoBehaviour
 
                 //update the users birdcoin
                 removeBirdCoin(possibleSkins[currentSelected].GetCost());
+
+                //the skin is now avaliable to update the button
+                enableButton();
+
+                //show a message to the user
+                StartCoroutine(ShowSuccessMessage(MESSAGE_TIME));
             }
             else
             {
                 //display message that the player doesn't have enough money
-
+                StartCoroutine(ShowFailedMessage(MESSAGE_TIME));
             }
         }
+    }
+
+    /*
+     * show the successful purchase message for a short time
+     */
+    private IEnumerator ShowSelectMessage(float delay)
+    {
+        purchaseMessage.SetActive(true);
+        purchaseMessage.GetComponent<Text>().text = String.Format(selectingMessage, possibleSkins[currentSelected].GetPreviewImageName());
+        yield return new WaitForSeconds(delay);
+        purchaseMessage.SetActive(false);
+
+    }
+
+    /*
+     * show the successful purchase message for a short time
+     */
+    private IEnumerator ShowSuccessMessage(float delay)
+    {
+        purchaseMessage.SetActive(true);
+        purchaseMessage.GetComponent<Text>().text = String.Format(successMessage, possibleSkins[currentSelected].GetPreviewImageName());
+        yield return new WaitForSeconds(delay);
+        purchaseMessage.SetActive(false);
+
+    }
+
+    /*
+     * show the failed purchase message for a short time
+     */
+    private IEnumerator ShowFailedMessage(float delay)
+    {
+        purchaseMessage.SetActive(true);
+        purchaseMessage.GetComponent<Text>().text = failedMessage;
+        yield return new WaitForSeconds(delay);
+        purchaseMessage.SetActive(false);
     }
 
     /*
@@ -142,9 +188,13 @@ public class PurchaseSkin : MonoBehaviour
     /*
      * go to the birdController class and update the Image that it is using
      */
-    private void updatePlayerSkin()
+    public void updatePlayerSkin()
     {
-        
+        Debug.Log("Selecting this player skin");
+
+        //save the currently selected skin, this is going to be loaded in the BirdController class
+        SaveGameData.SaveSelectedSkin(possibleSkins[currentSelected]);
+        StartCoroutine(ShowSelectMessage(MESSAGE_TIME));
     }
 
     /*
@@ -156,7 +206,7 @@ public class PurchaseSkin : MonoBehaviour
         possibleSkins[theSkinIndex].unlockSkin();
 
         //save the game data
-        SaveGameData.SaveSkins(possibleSkins);
+        saveData();
     }
 
     /*
@@ -172,6 +222,9 @@ public class PurchaseSkin : MonoBehaviour
 
         currentSelected--;
         Debug.Log("To:" + currentSelected);
+
+        //make sure the correct button shows up on the screen
+        enableButton();
 
         //reload the preview image
         ReloadPreviewImage();
@@ -193,6 +246,9 @@ public class PurchaseSkin : MonoBehaviour
         }
         Debug.Log("To:" + currentSelected);
 
+        //make sure the correct button shows up on the screen
+        enableButton();
+
         //reload the preview image
         ReloadPreviewImage();
     }
@@ -202,7 +258,63 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ReloadPreviewImage()
     {
-        Sprite newSprite = possibleSkins[currentSelected].GetPreviewImage() as Sprite;
-        GetComponent<Image>().sprite = newSprite;
+        Debug.Log("Trying to reload the image");
+        Debug.Log("Trying to load image at skin:" + currentSelected);
+        for (int i = 0; i < possibleSkins.Length; i++)
+        {
+            Debug.Log("Skin:" + i + " name:" + possibleSkins[i].GetPreviewImage().ToString());
+        }
+
+        Sprite newSprite = possibleSkins[currentSelected].GetPreviewImage();
+
+        Debug.Log("Sprint name:" + newSprite.name);
+
+        selectionScreen.sprite = newSprite;
+    }
+
+    /*
+     * This makes sure the approriate button shows up when cycling through the skins
+     * Shows select button if the skin is purchased
+     * shows the buy button if the skin is not purchased
+     */
+    private void enableButton()
+    {
+        if(possibleSkins[currentSelected].GetIsPurchased())
+        {
+            //if the skin is purchased, don't let the player purchase it again,
+            //give them the ability to select the skin (show the select button)
+            selectButton.SetActive(true);
+            purchaseButton.SetActive(false);
+        }
+        else
+        {
+            //if this skin is not purchased don't let them select it
+            //show the purchase button
+            selectButton.SetActive(false);
+            purchaseButton.SetActive(true);
+        }
+    }
+
+    /*
+     * the only purpose for this function is to resave skins. This would be nessisary when:
+     *      - adding new skins
+     *      - changing the price of a skin (doesn't handle checking if the skin is purchased)
+     *      - resetting purchased skin
+     *      - run on first time startup
+     *      
+     */
+    private void reSaveSkins()
+    {
+        //TEMP: MAKE A SKIN SO THERE IS SOMETHING TO LOAD
+        
+        possibleSkins = new Skins[3];
+        possibleSkins[0] = new Skins("bird", 0, true);//this is the default skin
+        possibleSkins[1] = new Skins("blueBird", 150, false);
+        possibleSkins[2] = new Skins("fireBird", 200, false);
+
+        SaveGameData.SaveSkins(possibleSkins);
+        
+        //TEMP: MAKE A coin SO THERE IS SOMETHING TO LOAD
+        SaveGameData.SavePlayerCoin(0);
     }
 }

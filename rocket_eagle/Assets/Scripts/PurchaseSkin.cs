@@ -19,9 +19,9 @@ public class PurchaseSkin : MonoBehaviour
 
     [SerializeField] private GameObject purchaseMessage;
 
-    private const string successMessage = "Y o u   P u r c h a s e d   T h e   {0}\nS k i n";
-    private const string failedMessage = "S o r r y,   Y o u   D o n ' t   H a v e   E n o u g h   B i r d C o i n";
-    private const string selectingMessage = "S e l e c t e d   {0}   S k i n";
+    private const string SUCCESS_MESSAGE = "Y o u   P u r c h a s e d   T h e   {0}\nS k i n";
+    private const string FAILED_MESSAGE = "S o r r y,   Y o u   D o n ' t   H a v e   E n o u g h   B i r d C o i n";
+    private const string SELECTING_MESSAGE = "S e l e c t e d   {0}   S k i n";
     private const float MESSAGE_TIME = 5;
 
     //var to keep track of whether we are currently loading data
@@ -108,7 +108,7 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ShowSelectMessage(float delay)
     {
-        String message = String.Format(selectingMessage, possibleSkins[currentSelected].GetPreviewImageName());
+        String message = String.Format(SELECTING_MESSAGE, possibleSkins[currentSelected].GetPreviewImageName());
         StartCoroutine(ShowPopUpMessage(message, delay));
     }
 
@@ -117,7 +117,7 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ShowSuccessMessage(float delay)
     {
-        String message = String.Format(successMessage, possibleSkins[currentSelected].GetPreviewImageName());
+        String message = String.Format(SUCCESS_MESSAGE, possibleSkins[currentSelected].GetPreviewImageName());
         StartCoroutine(ShowPopUpMessage(message, delay));
     }
 
@@ -126,7 +126,7 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ShowFailedMessage(float delay)
     {
-        StartCoroutine(ShowPopUpMessage(failedMessage, delay));
+        StartCoroutine(ShowPopUpMessage(FAILED_MESSAGE, delay));
     }
 
     /*

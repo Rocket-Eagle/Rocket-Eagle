@@ -17,6 +17,7 @@ public static class SaveGameData
     private static string ALL_SKINS_FILE = "/SavedSkins.saves";
     private static string SKIN_COUNT_FILE = "/SavedSkinsCount.saves";
     private static string PLAYER_COIN_FILE = "/SavedCoin.saves";
+    private static string UPDATE_COIN_FILE = "/UpdateCoin.saves";//I hate that i have to do this, but this is the file that saves the amount of birdcoin that was just won through finishing a game
 
     //this is the path where the files above reside in the device (this works with mobile and desktop)
     private static string PATH = Application.persistentDataPath;
@@ -239,7 +240,7 @@ public static class SaveGameData
 
 
     /*
-     * save the skins and there state
+     * save the players birdcoin
      */
     public static void SavePlayerCoin(uint coinAmount)
     {
@@ -279,7 +280,51 @@ public static class SaveGameData
         }
     }
 
-    
+    /*
+     * save the amount of birdcoin the player just earned (from the updateBirdCoin())
+     * this method should never be called outside this class (hence private)
+     */
+    private static void SaveUpdateCoin(uint coinAmount)
+    {
+        //setup the stuff for the binary writer
+        BinaryFormatter formatter = new BinaryFormatter();
+        string coinPath = PATH + UPDATE_COIN_FILE;
+        FileStream stream = new FileStream(coinPath, FileMode.Create);
+
+        formatter.Serialize(stream, coinAmount);
+        stream.Close();
+    }
+
+    /*
+     * returns the amount of birdcoin the player won in the last game
+     * 
+     * the ONLY use for this function is to display to the user how much birdcoin the player just earned in the last game
+     * If you are reading this and thinking it has any other use, you are wrong. use the UpdatePlayerCoin()
+     */
+    public static uint LoadUpdateCoin()
+    {
+        string coinPath = PATH + UPDATE_COIN_FILE;
+        if (File.Exists(coinPath))
+        {
+            uint coinAmount = 0;
+
+            //setup the stuff for the binary reader
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(coinPath, FileMode.Open);
+
+            coinAmount = (uint)formatter.Deserialize(stream);
+
+            stream.Close();
+
+            return coinAmount;
+        }
+        else
+        {
+            Debug.LogError("UpdateCoin save file not found in:" + coinPath);
+            return 0;
+        }
+    }
+
 
     /*
      * The purpose of this function is to provide a way to update the birdcoin of the player when they finish a game
@@ -294,6 +339,9 @@ public static class SaveGameData
     {
         //load in the balance the player had
         uint previousBalance = LoadPlayerCoin();
+
+        //save the added coin so that it can be used later to display it to the user
+        SaveUpdateCoin(additionalCoin);
 
         uint newBalance = previousBalance + additionalCoin;
 

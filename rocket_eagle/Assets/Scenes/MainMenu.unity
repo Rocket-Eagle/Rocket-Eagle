@@ -1309,6 +1309,7 @@ MonoBehaviour:
   minPlayers: 2
   menuScene: Assets/Scenes/MainMenu.unity
   roomPlayerPrefab: {fileID: -3612533455010137171, guid: cb6f7a6c9aceefd4eb1b0ec429e270a9, type: 3}
+  gamePlayerPrefab: {fileID: 1774972642018432120, guid: bd455fb3c37f17a40a88b64302de10f0, type: 3}
 --- !u!4 &313034085
 Transform:
   m_ObjectHideFlags: 0
@@ -3318,41 +3319,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &744474042
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 744474043}
-  m_Layer: 5
-  m_Name: BASEOBJECT
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &744474043
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744474042}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.18073, y: 0.18073, z: 0.18073}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 346.99997, y: 183.8}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &760080080
 GameObject:
   m_ObjectHideFlags: 0

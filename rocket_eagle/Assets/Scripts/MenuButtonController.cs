@@ -59,6 +59,7 @@ public class MenuButtonController : MonoBehaviour {
 			SaveGameData.DeleteAllData();
 		}
 		*/
+		
 		Application.Quit();
 	}
 

@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class SelectLevel : MonoBehaviour
 {
+    private const string LEVEL_PATH = "LevelSelection/Levels";
+
     //the array that holds the images that the player can cycle through
     private Object[] imagePreviews;
     //the currently previewed image
@@ -16,10 +18,7 @@ public class SelectLevel : MonoBehaviour
     {
         //load in all the images in the 'Assets/Resources/LevelSelection/Levels' file
         //NOTE: these images must be of the size (UNDEFINED AS OF RIGHT NOW) in order for them to load properly
-        imagePreviews = Resources.LoadAll("LevelSelection/Levels", typeof(Sprite));
-
-
-        Debug.Log("Found:" + imagePreviews.Length + " number of images");
+        imagePreviews = Resources.LoadAll(LEVEL_PATH, typeof(Sprite));
 
         //set the index
         currentSelected = 0;

@@ -148,7 +148,7 @@ public class NetworkManagerLobby : NetworkManager
 
               NetworkServer.Destroy(conn.identity.gameObject);
 
-              NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
+              NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
           }
       }
 
@@ -159,7 +159,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        if (sceneName.StartsWith("Field"))
+        if (sceneName.Contains("Field"))
         {
             GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);

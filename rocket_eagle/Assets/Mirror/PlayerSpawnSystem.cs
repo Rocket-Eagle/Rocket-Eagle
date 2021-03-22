@@ -46,8 +46,8 @@ public class PlayerSpawnSystem : NetworkBehaviour
             Debug.LogError($"Misssing spawn pointer for player {nextIndex}");
         }
 
-        GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
-        NetworkServer.Spawn(playerInstance, conn);
+        //GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
+        //NetworkServer.AddPlayerForConnection(conn, playerInstance);
 
         nextIndex++;
     }

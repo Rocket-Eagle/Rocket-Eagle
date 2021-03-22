@@ -30,12 +30,13 @@ public class BirdController : NetworkBehaviour
     public int maxLaps = 3;
     public int topBoundary = 5;
     public int bottomBoundary = -5;
+    public float countDown = 3.00f;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.velocity = startingVelocity;
+        rigidBody.velocity = new Vector2(0,0);
         originalRotation = transform.rotation;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -52,6 +53,11 @@ public class BirdController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (countDown >=0)
+        {
+            countDown -= Time.deltaTime;
+            return;
+        }
 
         if (isLocalPlayer == false)
         {

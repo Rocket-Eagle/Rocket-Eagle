@@ -30,6 +30,7 @@ public class FinishScene : MonoBehaviour
     public void playAgain()
     {
         //TODO: find a way to dynamically reload this current scene
-        SceneManager.LoadScene("SingleField");
+        string scene = SaveGameData.LoadSelectedLevel();
+        SceneManager.LoadScene(scene);
     }
 }

@@ -124,6 +124,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spriteRenderer: {fileID: 0}
+  defaultSkin: {fileID: 21300000, guid: 4b2c7c6dc48d70a4ebef9494d6919b8f, type: 3}
   spriteArray:
   - {fileID: 21300000, guid: 4b2c7c6dc48d70a4ebef9494d6919b8f, type: 3}
   - {fileID: 21300000, guid: 5021295cb2630284f805096f21fbb6cb, type: 3}

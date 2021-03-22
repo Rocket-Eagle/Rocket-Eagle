@@ -1309,7 +1309,7 @@ MonoBehaviour:
   minPlayers: 2
   menuScene: Assets/Scenes/MainMenu.unity
   roomPlayerPrefab: {fileID: -3612533455010137171, guid: cb6f7a6c9aceefd4eb1b0ec429e270a9, type: 3}
-  gamePlayerPrefab: {fileID: 1774972642018432120, guid: bd455fb3c37f17a40a88b64302de10f0, type: 3}
+  gamePlayerPrefab: {fileID: 2445096856917071311, guid: 0c944ade4275bef488ad7cbdd6bf51fd, type: 3}
 --- !u!4 &313034085
 Transform:
   m_ObjectHideFlags: 0

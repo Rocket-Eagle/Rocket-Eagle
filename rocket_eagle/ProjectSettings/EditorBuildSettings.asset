@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinishSceneSP.unity
     guid: 9fb9968446e1f044daadfdbab16fca44
+  - enabled: 1
+    path: Assets/Scenes/SingleField.unity
+    guid: dcd9f03e677e18747941ae008d44b3d0
   m_configObjects: {}

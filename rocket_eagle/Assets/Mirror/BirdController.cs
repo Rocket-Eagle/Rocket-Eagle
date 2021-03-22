@@ -9,6 +9,7 @@ public class BirdController : NetworkBehaviour
 {
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite defaultSkin;
     [SerializeField] public Sprite[] spriteArray;
 
     Rigidbody2D rigidBody;
@@ -42,7 +43,17 @@ public class BirdController : NetworkBehaviour
 
         //get the sprite from the file
         Skins selectedSkin = SaveGameData.LoadSelectedSkin();
-        spriteRenderer.sprite = selectedSkin.GetPreviewImage();
+        if (selectedSkin == null || selectedSkin.GetPreviewImage() == null)
+        {
+            //no skin/file was found, using the default
+            Debug.LogError("ERROR, the skin preview image was not found, resorting to default");
+            spriteRenderer.sprite = defaultSkin;
+        }
+        else
+        {
+            //file was found, so everything is good
+            spriteRenderer.sprite = selectedSkin.GetPreviewImage();
+        }
     }
 
     public override void OnStartLocalPlayer()

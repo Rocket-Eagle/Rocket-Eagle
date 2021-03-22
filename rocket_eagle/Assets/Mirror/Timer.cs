@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;//to get math funcions
 
 [RequireComponent(typeof(Text))]
 public class Timer : MonoBehaviour
@@ -30,14 +31,20 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            //the game is finished so take the current time and use it to give the player birdcoin
-             
-            //this function give a larger results (more birdcoin) for smaller time values and smaller results (less birdcoin) for large time values
-            uint bc =(uint) Mathf.Pow(1.0f / 2.0f, Mathf.Log(timeElapsed)) * 300;
+            Debug.Log("Time it took to for match:" + timeElapsed);
+            float logVal = Mathf.Log(timeElapsed);
 
+            //so C# is studip and doesn't handle a conversion from double to uint
+            //so I have to go from double to int to uint
+            double bc = Math.Pow(1.0f / 2.0f, logVal) * 400;
+
+            int bcValue = (int)bc;
+
+            uint bcValueActual = (uint)bcValue;
+
+            //uint bc = 100;
             //now that we have the amount of birdcoin the user has earned, update the file that stores the amount
-            SaveGameData.UpdatePlayerCoin(bc);
+            SaveGameData.UpdatePlayerCoin(bcValueActual);
         }
-        
     }
 }

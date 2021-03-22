@@ -70,7 +70,7 @@ public class BirdController : NetworkBehaviour
             finishTimer += Time.deltaTime;
             if (finishTimer >= finishDuration)
             {
-                SceneManager.LoadScene("SinglePlayerEnding");
+                SceneManager.LoadScene("FinishSceneSP");
             }
         }
         
@@ -132,7 +132,6 @@ public class BirdController : NetworkBehaviour
         {
             if (lap == maxLaps)
             {
-                SceneManager.LoadScene("FinishSceneSP");
 
                 finished = true;
             }

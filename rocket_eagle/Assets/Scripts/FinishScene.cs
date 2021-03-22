@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FinishScene : MonoBehaviour
 {
@@ -16,5 +17,19 @@ public class FinishScene : MonoBehaviour
         uint bc = SaveGameData.LoadUpdateCoin();
 
         birdCoinMessage.text = string.Format(BIRDCOIN_MESSAGE, bc);
+    }
+
+    /*
+     * go to the main menu from the finish game scene
+     */
+    public void goToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void playAgain()
+    {
+        //TODO: find a way to dynamically reload this current scene
+        SceneManager.LoadScene("SingleField");
     }
 }

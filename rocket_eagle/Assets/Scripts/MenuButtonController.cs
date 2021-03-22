@@ -46,7 +46,7 @@ public class MenuButtonController : MonoBehaviour {
 	public void playAgain()
     {
 		//TODO: find a way to dynamically reload this current scene
-		SceneManager.LoadScene("Field");
+		SceneManager.LoadScene("SingleField");
 	}
 
 	public void quitGame()

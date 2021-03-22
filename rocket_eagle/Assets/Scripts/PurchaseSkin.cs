@@ -46,6 +46,9 @@ public class PurchaseSkin : MonoBehaviour
             //this is either an error, or a onetime initialization
             Debug.LogError("Error, loaded in zero skin objects!");
             reSaveSkins();
+
+            //set the selected skin
+            SaveGameData.SaveSelectedSkin(possibleSkins[0]);
             Debug.Log("Resaving skins, if you see this message again, there is a problem");
         }
 

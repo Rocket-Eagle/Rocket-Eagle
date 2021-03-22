@@ -367,6 +367,7 @@ public static class SaveGameData
      */
     public static void DeleteAllData()
     {
+        Debug.Log("WARNING, REMOVING ALL SAVE DATA");
         DeleteAllSkins();
         DeletePlayerCoin();
         DeleteSelectedSkin();
@@ -431,6 +432,13 @@ public static class SaveGameData
         {
             Debug.LogError("Player coin file file not found during delete, ignoring");
         }
-        
+        try
+        {
+            File.Delete(PATH + UPDATE_COIN_FILE);
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("Update coin file file not found during delete, ignoring");
+        }
     }
 }

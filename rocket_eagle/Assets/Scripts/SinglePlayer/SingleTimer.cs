@@ -12,6 +12,7 @@ public class SingleTimer : MonoBehaviour
     public float timeElapsed = 0.0f;
     GameObject player;
     SinglePlayerController bird;
+    private bool addedBirdCoin = false;//make sure the birdcoin is only added once
     
     // Start is called before the first frame update
     void OnEnable()
@@ -32,20 +33,27 @@ public class SingleTimer : MonoBehaviour
         } //this function give a larger results (more birdcoin) for smaller time values and smaller results (less birdcoin) for large time values
         else
         {
-            Debug.Log("Time it took to for match:" + timeElapsed);
-            float logVal =  Mathf.Log(timeElapsed);
-            
-            //so C# is studip and doesn't handle a conversion from double to uint
-            //so I have to go from double to int to uint
-            double bc = Math.Pow(1.0f / 2.0f, logVal) * 400;
+            if (!addedBirdCoin)
+            {
 
-            int bcValue = (int)bc;
+                Debug.Log("Time it took to for match:" + timeElapsed);
+                float logVal = Mathf.Log(timeElapsed);
 
-            uint bcValueActual = (uint)bcValue;
+                //so C# is studip and doesn't handle a conversion from double to uint
+                //so I have to go from double to int to uint
+                double bc = Math.Pow(1.0f / 2.0f, logVal) * 400;
 
-            //uint bc = 100;
-            //now that we have the amount of birdcoin the user has earned, update the file that stores the amount
-            SaveGameData.UpdatePlayerCoin(bcValueActual);
+                int bcValue = (int)bc;
+
+                uint bcValueActual = (uint)bcValue;
+
+                //uint bc = 100;
+                //now that we have the amount of birdcoin the user has earned, update the file that stores the amount
+                SaveGameData.UpdatePlayerCoin(bcValueActual);
+
+                //we have now added the birdcoin so make sure we don't do it again
+                addedBirdCoin = true;
+            }
         }
 
     }

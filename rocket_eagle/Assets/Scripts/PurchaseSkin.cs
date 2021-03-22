@@ -18,10 +18,12 @@ public class PurchaseSkin : MonoBehaviour
     [SerializeField] private GameObject purchaseButton;
 
     [SerializeField] private GameObject purchaseMessage;
+    [SerializeField] private GameObject skinPriceDisplay;
 
     private const string SUCCESS_MESSAGE = "Y o u   P u r c h a s e d   T h e   {0}\nS k i n";
     private const string FAILED_MESSAGE = "S o r r y,   Y o u   D o n ' t   H a v e   E n o u g h   B i r d C o i n";
     private const string SELECTING_MESSAGE = "S e l e c t e d   {0}   S k i n";
+    private const string PRICE_MESSAGE = "C o s t: {0}";
     private const float MESSAGE_TIME = 5;
 
     //var to keep track of whether we are currently loading data
@@ -232,6 +234,9 @@ public class PurchaseSkin : MonoBehaviour
 
         //reload the preview image
         ReloadPreviewImage();
+
+        //reload the cost of the skin
+        ReloadSkinCost();
     }
 
     /*
@@ -255,6 +260,9 @@ public class PurchaseSkin : MonoBehaviour
 
         //reload the preview image
         ReloadPreviewImage();
+
+        //reload the cost of the skin
+        ReloadSkinCost();
     }
 
     /*
@@ -262,18 +270,31 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ReloadPreviewImage()
     {
-        Debug.Log("Trying to reload the image");
         Debug.Log("Trying to load image at skin:" + currentSelected);
-        for (int i = 0; i < possibleSkins.Length; i++)
-        {
-            Debug.Log("Skin:" + i + " name:" + possibleSkins[i].GetPreviewImage().ToString());
-        }
 
         Sprite newSprite = possibleSkins[currentSelected].GetPreviewImage();
 
-        Debug.Log("Sprint name:" + newSprite.name);
-
         selectionScreen.sprite = newSprite;
+    }
+
+    /*
+     * This is the function that reloads the cost of the skins so that the user can see what they cost
+     */
+    private void ReloadSkinCost()
+    {
+        string msg = "Already purchased!";
+        if (possibleSkins[currentSelected].GetIsPurchased())
+        {
+            //the skin is already purchased, so don't display a price
+            skinPriceDisplay.SetActive(false);
+        }
+        else
+        {
+            msg = String.Format(PRICE_MESSAGE, possibleSkins[currentSelected].GetCost());
+            skinPriceDisplay.SetActive(true);
+            skinPriceDisplay.GetComponent<Text>().text = msg;
+        }
+        
     }
 
     /*

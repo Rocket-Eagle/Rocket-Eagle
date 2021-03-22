@@ -14,6 +14,7 @@ public static class SaveGameData
     //the names of the files where the respective data is stored
     //NOTE: please add to the deleteAllFiles method if you are adding to this list
     private static string SELECTED_SKIN_FILE = "/SelectedSkin.saves";
+    private static string SELECTED_LEVEL_FILE = "/SelectedLevel.saves";
     private static string ALL_SKINS_FILE = "/SavedSkins.saves";
     private static string SKIN_COUNT_FILE = "/SavedSkinsCount.saves";
     private static string PLAYER_COIN_FILE = "/SavedCoin.saves";
@@ -350,6 +351,57 @@ public static class SaveGameData
     }
 
 
+    /*
+     * 
+     * -------------------------------SELECTED LEVEL FUNCTIONS--------------------------------------
+     * 
+     * 
+     */
+
+
+    /*
+     * save the level the player selected
+     */
+    public static void SaveSelectedLevel(string levelName)
+    {
+        //setup the stuff for the binary writer
+        BinaryFormatter formatter = new BinaryFormatter();
+        string levelPath = PATH + SELECTED_LEVEL_FILE;
+        FileStream stream = new FileStream(levelPath, FileMode.Create);
+
+        formatter.Serialize(stream, levelName);
+        stream.Close();
+    }
+
+    /*
+     * returns the name of the level the player last selected, or null if the file doesn't exist
+     */
+    public static string LoadSelectedLevel()
+    {
+        string levelPath = PATH + SELECTED_LEVEL_FILE;
+        if (File.Exists(levelPath))
+        {
+            string selectedLevel = "THIS IS NOT A GOOD STRING!";
+
+            //setup the stuff for the binary reader
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(levelPath, FileMode.Open);
+
+            selectedLevel = (string)formatter.Deserialize(stream);
+
+            stream.Close();
+
+            return selectedLevel;
+        }
+        else
+        {
+            Debug.LogError("Selected level save file not found in:" + levelPath);
+            return null;
+        }
+    }
+
+
+
 
     /*
      * 
@@ -371,6 +423,7 @@ public static class SaveGameData
         DeleteAllSkins();
         DeletePlayerCoin();
         DeleteSelectedSkin();
+        DeleteSelectedLevel();
     }
 
     /*
@@ -389,6 +442,24 @@ public static class SaveGameData
             Debug.LogError("Selected skin file not found during delete, ignoring");
         }
         
+    }
+
+    /*
+     * This method deletes the selected level file the saved files
+     * 
+     * THIS FUNCTION SHOULD ALMOST NEVER BE CALLED. IT IS BASICALLY JUST FOR TESTING PURPOSES
+     */
+    public static void DeleteSelectedLevel()
+    {
+        try
+        {
+            File.Delete(PATH + SELECTED_LEVEL_FILE);
+        }
+        catch (System.Exception)
+        {
+            Debug.LogError("Selected level file not found during delete, ignoring");
+        }
+
     }
 
     /*

@@ -200,10 +200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.006
+  syncInterval: 0.01
   clientAuthority: 1
-  localPositionSensitivity: 0.001
-  localRotationSensitivity: 0.001
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
   localScaleSensitivity: 0.001
 --- !u!114 &2445096856917071311
 MonoBehaviour:

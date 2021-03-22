@@ -28,7 +28,11 @@ public class SingleTimer : MonoBehaviour
         {
             timeElapsed += Time.deltaTime;
             time.text = "T i m e : " + timeElapsed.ToString("F2");
-        }
-        
+        } //this function give a larger results (more birdcoin) for smaller time values and smaller results (less birdcoin) for large time values
+        //uint bc = (uint)Mathf.Pow(1.0f / 2.0f, Mathf.Log(timeElapsed)) * 300;
+        uint bc = 100;
+        //now that we have the amount of birdcoin the user has earned, update the file that stores the amount
+        SaveGameData.UpdatePlayerCoin(bc);
+
     }
 }

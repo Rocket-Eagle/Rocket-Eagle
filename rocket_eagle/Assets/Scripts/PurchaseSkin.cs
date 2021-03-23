@@ -21,7 +21,7 @@ public class PurchaseSkin : MonoBehaviour
     [SerializeField] private GameObject skinPriceDisplay;
 
     private const string SUCCESS_MESSAGE = "Y o u   P u r c h a s e d   T h e   {0}\nS k i n";
-    private const string FAILED_MESSAGE = "S o r r y,   Y o u   D o n ' t   H a v e   E n o u g h   B i r d C o i n";
+    private const string FAILED_MESSAGE = "S o r r y,   Y o u   D o n ' t   H a v e   E n o u g h   B i r d C o i n   A s   I t   C o s t s :   {0}";
     private const string SELECTING_MESSAGE = "S e l e c t e d   {0}   S k i n";
     private const string PRICE_MESSAGE = "C o s t: {0}";
     private const float MESSAGE_TIME = 5;
@@ -35,9 +35,7 @@ public class PurchaseSkin : MonoBehaviour
      */
     public void Start()
     {
-        Debug.Log("CAN I SEE THIS MESSAGE?????????????????????????????????????????????????????????????????????????????????????????????????????????????");
         onLoad = true;
-        Debug.Log("THIS MESSAGE SHOULD SHOW NOW TOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         currentSelected = 0;
 
         //load in the skins data to know what has already been purchased
@@ -86,12 +84,12 @@ public class PurchaseSkin : MonoBehaviour
                 enableButton();
 
                 //show a message to the user
-                ShowSuccessMessage(MESSAGE_TIME);
+                ShowSuccessMessage();
             }
             else
             {
                 //display message that the player doesn't have enough money
-                ShowFailedMessage(MESSAGE_TIME);
+                ShowFailedMessage();
             }
         }
     }
@@ -100,39 +98,38 @@ public class PurchaseSkin : MonoBehaviour
      * Show a popup message on the skin preview image
      * @param message the message to be read to the user (if using the set messages declared above make sure to format them before calling this, when applicable)
      */
-    private IEnumerator ShowPopUpMessage(String message, float delay)
+    private void ShowPopUpMessage(String message)
     {
+        //show the message
         purchaseMessage.SetActive(true);
         purchaseMessage.GetComponent<Text>().text = message;
-        yield return new WaitForSeconds(delay);
-        purchaseMessage.SetActive(false);
-
     }
 
     /*
      * show the successful purchase message for a short time
      */
-    private void ShowSelectMessage(float delay)
+    private void ShowSelectMessage()
     {
         String message = String.Format(SELECTING_MESSAGE, possibleSkins[currentSelected].GetPreviewImageName());
-        StartCoroutine(ShowPopUpMessage(message, delay));
+        ShowPopUpMessage(message);
     }
 
     /*
      * show the successful purchase message for a short time
      */
-    private void ShowSuccessMessage(float delay)
+    private void ShowSuccessMessage()
     {
         String message = String.Format(SUCCESS_MESSAGE, possibleSkins[currentSelected].GetPreviewImageName());
-        StartCoroutine(ShowPopUpMessage(message, delay));
+        ShowPopUpMessage(message);
     }
 
     /*
      * show the failed purchase message for a short time
      */
-    private void ShowFailedMessage(float delay)
+    private void ShowFailedMessage()
     {
-        StartCoroutine(ShowPopUpMessage(FAILED_MESSAGE, delay));
+        String message = String.Format(FAILED_MESSAGE, possibleSkins[currentSelected].GetCost());
+        ShowPopUpMessage(message);
     }
 
     /*
@@ -204,7 +201,7 @@ public class PurchaseSkin : MonoBehaviour
 
         //save the currently selected skin, this is going to be loaded in the BirdController class
         SaveGameData.SaveSelectedSkin(possibleSkins[currentSelected]);
-        ShowSelectMessage(MESSAGE_TIME);
+        ShowSelectMessage();
     }
 
     /*
@@ -322,6 +319,9 @@ public class PurchaseSkin : MonoBehaviour
             selectButton.SetActive(false);
             purchaseButton.SetActive(true);
         }
+
+        //clear the message box
+        purchaseMessage.SetActive(false);
     }
 
     /*

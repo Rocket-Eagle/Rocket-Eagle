@@ -43,7 +43,7 @@ public static class SaveGameData
 
         if (allSkinData == null)
         {
-            Debug.LogError("allSkinData is null, aborting save");
+            Debug.Log("allSkinData is null, aborting save");
             return;
         }
 
@@ -95,7 +95,7 @@ public static class SaveGameData
         }
         else
         {
-            Debug.LogError("Skin save file not found in:" + skinPath);
+            Debug.Log("Skin save file not found in:" + skinPath);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public static class SaveGameData
     {
         if(theSkins == null)
         {
-            Debug.LogError("ERROR, Skins[] is null");
+            Debug.Log("ERROR, Skins[] is null");
             return null;
         }
 
@@ -118,7 +118,7 @@ public static class SaveGameData
         {
             if(theSkins[i] == null)
             {
-                Debug.LogError("ERROR, there is a null skin in theSkins[]");
+                Debug.Log("ERROR, there is a null skin in theSkins[]");
                 return null;
             }
 
@@ -135,7 +135,7 @@ public static class SaveGameData
     {
         if (theSkins == null)
         {
-            Debug.LogError("ERROR, Skins[] is null");
+            Debug.Log("ERROR, Skins[] is null");
             return null;
         }
 
@@ -182,7 +182,7 @@ public static class SaveGameData
         }
         else
         {
-            Debug.LogError("BirdCoin save file not found in:" + path);
+            Debug.Log("BirdCoin save file not found in:" + path);
             return 0;
         }
     }
@@ -224,7 +224,7 @@ public static class SaveGameData
         }
         else
         {
-            Debug.LogError("Selected save file not found in:" + path);
+            Debug.Log("Selected save file not found in:" + path);
             return null;
         }
     }
@@ -276,7 +276,7 @@ public static class SaveGameData
         }
         else
         {
-            Debug.LogError("BirdCoin save file not found in:" + coinPath);
+            Debug.Log("BirdCoin save file not found in:" + coinPath);
             return 0;
         }
     }
@@ -321,7 +321,7 @@ public static class SaveGameData
         }
         else
         {
-            Debug.LogError("UpdateCoin save file not found in:" + coinPath);
+            Debug.Log("UpdateCoin save file not found in:" + coinPath);
             return 0;
         }
     }
@@ -395,7 +395,7 @@ public static class SaveGameData
         }
         else
         {
-            Debug.LogError("Selected level save file not found in:" + levelPath);
+            Debug.Log("Selected level save file not found in:" + levelPath);
             return null;
         }
     }
@@ -439,7 +439,7 @@ public static class SaveGameData
         }
         catch (System.Exception)
         {
-            Debug.LogError("Selected skin file not found during delete, ignoring");
+            Debug.Log("Selected skin file not found during delete, ignoring");
         }
         
     }
@@ -457,7 +457,7 @@ public static class SaveGameData
         }
         catch (System.Exception)
         {
-            Debug.LogError("Selected level file not found during delete, ignoring");
+            Debug.Log("Selected level file not found during delete, ignoring");
         }
 
     }
@@ -475,7 +475,7 @@ public static class SaveGameData
         }
         catch (System.Exception)
         {
-            Debug.LogError("All skins file not found during delete, ignoring");
+            Debug.Log("All skins file not found during delete, ignoring");
         }
         try
         {
@@ -483,7 +483,7 @@ public static class SaveGameData
         }
         catch (System.Exception)
         {
-            Debug.LogError("skin count file not found during delete, ignoring");
+            Debug.Log("skin count file not found during delete, ignoring");
         }
         
     }
@@ -501,7 +501,7 @@ public static class SaveGameData
         }
         catch (System.Exception)
         {
-            Debug.LogError("Player coin file file not found during delete, ignoring");
+            Debug.Log("Player coin file file not found during delete, ignoring");
         }
         try
         {
@@ -509,7 +509,7 @@ public static class SaveGameData
         }
         catch (System.Exception)
         {
-            Debug.LogError("Update coin file file not found during delete, ignoring");
+            Debug.Log("Update coin file file not found during delete, ignoring");
         }
     }
 }

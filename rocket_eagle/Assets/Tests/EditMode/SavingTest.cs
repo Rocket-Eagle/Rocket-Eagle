@@ -109,6 +109,29 @@ public class SavingTest
 
         //cleanup
         SaveGameData.DeletePlayerCoin();
+
+    }
+
+    /*
+     * Test to make sure that the deleting of files works properly
+     */
+    [Test]
+    public void SaveSelectedLevel()
+    {
+        //initialize test
+        string levelName = "Cave";
+
+        //preform the action
+        SaveGameData.SaveSelectedLevel(levelName);
+
+        //now preform the test
+        string loadedLevel = SaveGameData.LoadSelectedLevel();
+
+        //assert
+        Assert.IsTrue(levelName == loadedLevel);
+
+        //clean up
+        SaveGameData.DeleteSelectedLevel();
     }
 
     /*
@@ -193,5 +216,84 @@ public class SavingTest
         SaveGameData.DeleteSelectedSkin();
     }
 
+    /*
+     * Test to make sure that the deleting the selected skin
+     */
+    [Test]
+    public void DeleteSSkinTesting()
+    {
+        //initialize test
+        Skins selectedSkin = new Skins("bird", 111, false);
 
+        //preform the action
+        SaveGameData.SaveSelectedSkin(selectedSkin);
+
+        //now preform the test
+        SaveGameData.DeleteSelectedSkin();//delete the skin
+        Skins loadedSkin = SaveGameData.LoadSelectedSkin();//try loading in a skin (should be null)
+
+        //assert
+        Assert.IsNull(loadedSkin);
+    }
+
+    /*
+     * Test to make sure that the deleting of files works properly
+     */
+    [Test]
+    public void DeleteAllSkinTesting()
+    {
+        //initialize test
+        Skins[] skinsToSave = new Skins[3];
+        skinsToSave[0] = new Skins("bird", 0, true);//this is the default skin
+        skinsToSave[1] = new Skins("blueBird", 150, false);
+        skinsToSave[2] = new Skins("fireBird", 200, false);
+
+        //preform the action
+        SaveGameData.SaveSkins(skinsToSave);
+        SaveGameData.DeleteAllSkins();
+
+        //now preform the test
+        Skins[] loadedSkins = SaveGameData.LoadSkins();
+        Assert.IsNull(loadedSkins);
+    }
+
+    /*
+     * Test to make sure that the deleting of files works properly
+     */
+    [Test]
+    public void DeleteLevelTesting()
+    {
+        //initialize test
+        string levelName = "Cave";
+
+        //preform the action
+        SaveGameData.SaveSelectedLevel(levelName);
+
+        //now preform the test
+        SaveGameData.DeleteSelectedLevel();
+        string loadedLevel = SaveGameData.LoadSelectedLevel();
+
+        //assert
+        Assert.IsNull(loadedLevel);
+    }
+
+    /*
+     * Test to make sure that the deleting of files works properly
+     */
+    [Test]
+    public void DeleteCoinTesting()
+    {
+        //initialize test
+        uint playerCoin = 222;
+
+        //preform the action
+        SaveGameData.SavePlayerCoin(playerCoin);
+        SaveGameData.DeletePlayerCoin();
+
+        //now preform the test
+        uint loadedCoin = SaveGameData.LoadPlayerCoin();
+
+        //assert
+        Assert.IsTrue(0 == loadedCoin);
+    }
 }

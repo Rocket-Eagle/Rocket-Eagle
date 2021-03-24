@@ -14,7 +14,7 @@ public class SinglePlayerController : MonoBehaviour
 
     Rigidbody2D rigidBody;
     public Vector2 startingVelocity = new Vector2(5, 0);
-    public Vector2 penalty = new Vector2(5, 0);
+    public Vector2 penalty = new Vector2(5, -1);
     public Vector2 horizontalAcceleration = new Vector2(1, 0);
     public Vector2 verticalAcceleration = new Vector2(0, 5);
     public float rotationSpeed = .5f;
@@ -83,22 +83,29 @@ public class SinglePlayerController : MonoBehaviour
                 recoveryTimer = 0.0f;
             }
         }
-        else
+        // implement boundaries
+        if (transform.position.y >= topBoundary)
         {
-            // implement boundaries
-            if (transform.position.y > topBoundary)
+            transform.position = new Vector2(transform.position.x, topBoundary);
+            if (rigidBody.velocity.y >= 0)
             {
-                transform.position = new Vector2(transform.position.x, topBoundary);
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
-            }
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, -rigidBody.velocity.y);
 
-            if (transform.position.y < bottomBoundary)
-            {
-                transform.position = new Vector2(transform.position.x, bottomBoundary);
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
             }
-
         }
+
+        if (transform.position.y <= bottomBoundary)
+        {
+            transform.position = new Vector2(transform.position.x, bottomBoundary);
+
+            if (rigidBody.velocity.y <= 0)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, -rigidBody.velocity.y);
+
+            }
+        }
+
+        
 
 
         if (rigidBody.velocity.x < startingVelocity.x)

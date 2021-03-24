@@ -31,6 +31,7 @@ public class FinishScene : MonoBehaviour
     {
         //TODO: find a way to dynamically reload this current scene
         string scene = SaveGameData.LoadSelectedLevel();
+
         SceneManager.LoadScene(scene);
     }
 }

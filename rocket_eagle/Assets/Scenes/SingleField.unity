@@ -2541,6 +2541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 0}
+  defaultSkin: {fileID: 21300000, guid: 4b2c7c6dc48d70a4ebef9494d6919b8f, type: 3}
   spriteArray: []
   startingVelocity: {x: 5, y: 0}
   penalty: {x: 5, y: 0}
@@ -2801,7 +2802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1545281780}
-  offset: {x: 7.92, y: 0, z: 0}
+  offset: {x: 5.66, y: 0, z: 0}
 --- !u!1 &2089296351
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,17 +38,6 @@ public class MenuButtonController : MonoBehaviour {
 		}
 	}
 
-	public void goToMainMenu()
-    {
-		SceneManager.LoadScene("MainMenu");
-	}
-
-	public void playAgain()
-    {
-		//TODO: find a way to dynamically reload this current scene
-		SceneManager.LoadScene("Field");
-	}
-
 	public void quitGame()
     {
 		//here is a quick way to remove all the game data

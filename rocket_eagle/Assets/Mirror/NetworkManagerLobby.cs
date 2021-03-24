@@ -15,6 +15,7 @@ public class NetworkManagerLobby : NetworkManager
     
     [Header("Game")]
     [SerializeField] private NetworkGamePlayerLobby gamePlayerPrefab = null;
+    [SerializeField] private GameObject playerSpawnSystem = null;
 
 
     public static event Action OnClientConnected;
@@ -147,7 +148,7 @@ public class NetworkManagerLobby : NetworkManager
 
               NetworkServer.Destroy(conn.identity.gameObject);
 
-              NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
+              NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject, true);
           }
       }
 
@@ -155,8 +156,18 @@ public class NetworkManagerLobby : NetworkManager
   }
 
 
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        if (sceneName.Contains("Field"))
+        {
+            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
+            NetworkServer.Spawn(playerSpawnSystemInstance);
+        }
+    }
+
     //called on connection, let's you know when a player is ready when the lobby is moved to a game 
-  public override void OnServerReady(NetworkConnection conn)
+    public override void OnServerReady(NetworkConnection conn)
   {
       base.OnServerReady(conn);
 

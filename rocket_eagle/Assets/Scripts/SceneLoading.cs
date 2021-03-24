@@ -17,6 +17,11 @@ public class SceneLoading : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //get the selected level the player chose
+        nextScene = SaveGameData.LoadSelectedLevel();
+
+        Debug.Log("The scene that was loaded in:" + nextScene);
+
         //start the async operation
         StartCoroutine(LoadAsyncOperation());
     }

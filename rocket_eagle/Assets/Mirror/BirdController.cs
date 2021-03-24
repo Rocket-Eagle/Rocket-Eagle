@@ -9,11 +9,12 @@ public class BirdController : NetworkBehaviour
 {
 
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite defaultSkin;
     [SerializeField] public Sprite[] spriteArray;
 
     Rigidbody2D rigidBody;
-    public Vector2 startingVelocity = new Vector2(5,0);
-    public Vector2 penalty = new Vector2(5,0);
+    public Vector2 startingVelocity = new Vector2(5, 0);
+    public Vector2 penalty = new Vector2(5, -1);
     public Vector2 horizontalAcceleration = new Vector2(1, 0);
     public Vector2 verticalAcceleration = new Vector2(0, 5);
     public float rotationSpeed = .5f;
@@ -36,13 +37,23 @@ public class BirdController : NetworkBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.velocity = new Vector2(0,0);
+        rigidBody.velocity = new Vector2(0, 0);
         originalRotation = transform.rotation;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         //get the sprite from the file
         Skins selectedSkin = SaveGameData.LoadSelectedSkin();
-        spriteRenderer.sprite = selectedSkin.GetPreviewImage();
+        if (selectedSkin == null || selectedSkin.GetPreviewImage() == null)
+        {
+            //no skin/file was found, using the default
+            Debug.LogError("ERROR, the skin preview image was not found, resorting to default");
+            spriteRenderer.sprite = defaultSkin;
+        }
+        else
+        {
+            //file was found, so everything is good
+            spriteRenderer.sprite = selectedSkin.GetPreviewImage();
+        }
     }
 
     public override void OnStartLocalPlayer()
@@ -53,12 +64,33 @@ public class BirdController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (countDown >=0)
+        if (countDown >= 0)
         {
             countDown -= Time.deltaTime;
+            rigidBody.velocity = new Vector2(0, 0);
             return;
         }
 
+        if (transform.position.y >= topBoundary)
+        {
+            transform.position = new Vector2(transform.position.x, topBoundary);
+            if (rigidBody.velocity.y >= 0)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, -rigidBody.velocity.y);
+
+            }
+        }
+
+        if (transform.position.y <= bottomBoundary)
+        {
+            transform.position = new Vector2(transform.position.x, bottomBoundary);
+
+            if (rigidBody.velocity.y <= 0)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, -rigidBody.velocity.y);
+
+            }
+        }
         if (isLocalPlayer == false)
         {
             return;
@@ -73,8 +105,8 @@ public class BirdController : NetworkBehaviour
                 SceneManager.LoadScene("FinishSceneSP");
             }
         }
-        
-        if(recovering == true)
+
+        if (recovering == true)
         {
             recoveryTimer += Time.deltaTime;
             Blink();
@@ -86,22 +118,9 @@ public class BirdController : NetworkBehaviour
                 Reset();
                 recoveryTimer = 0.0f;
             }
-        } else
-        {
-            // implement boundaries
-            if (transform.position.y > topBoundary)
-            {
-                transform.position = new Vector2(transform.position.x, topBoundary);
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
-            }
-
-            if (transform.position.y < bottomBoundary)
-            {
-                transform.position = new Vector2(transform.position.x, bottomBoundary);
-                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
-            }
-
         }
+        // implement boundaries
+       
 
 
         if (rigidBody.velocity.x < startingVelocity.x) {

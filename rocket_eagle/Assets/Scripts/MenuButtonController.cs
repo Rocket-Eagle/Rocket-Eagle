@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 
 public class MenuButtonController : MonoBehaviour {
@@ -39,6 +40,15 @@ public class MenuButtonController : MonoBehaviour {
 
 	public void quitGame()
     {
+		//here is a quick way to remove all the game data
+		//DO NOT HAVE THIS LINE UNCOMMENTED FOR RELEASE!!!!
+		/*
+		{
+			Debug.Log("REMOVING ALL SAVE DATA!!!");
+			SaveGameData.DeleteAllData();
+		}
+		*/
+		
 		Application.Quit();
 	}
 

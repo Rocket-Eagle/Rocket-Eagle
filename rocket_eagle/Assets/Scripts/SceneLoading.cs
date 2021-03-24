@@ -12,11 +12,16 @@ public class SceneLoading : MonoBehaviour
     //as we only have 1 map this is easy for now, 
     //but will need to be changed in the sprint where 
     //we add more maps
-    public string nextScene = "Field";
+    public string nextScene = "SingleField";
 
     // Start is called before the first frame update
     void Start()
     {
+        //get the selected level the player chose
+        nextScene = SaveGameData.LoadSelectedLevel();
+
+        Debug.Log("The scene that was loaded in:" + nextScene);
+
         //start the async operation
         StartCoroutine(LoadAsyncOperation());
     }

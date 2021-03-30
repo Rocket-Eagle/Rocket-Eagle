@@ -33,6 +33,19 @@ public class BirdController : NetworkBehaviour
     public int bottomBoundary = -5;
     public float countDown = 3.00f;
 
+    private NetworkManagerLobby room;
+    private NetworkManagerLobby Room
+    {
+        get
+        {
+            if (room != null) { return room; }
+            return room = NetworkManager.singleton as NetworkManagerLobby;
+        }
+    }
+
+    private const string PlayerPrefsNameKey = "PlayerName";
+    public string playerName = "";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +67,10 @@ public class BirdController : NetworkBehaviour
             //file was found, so everything is good
             spriteRenderer.sprite = selectedSkin.GetPreviewImage();
         }
+
+        //get the player's name
+        if (!PlayerPrefs.HasKey(PlayerPrefsNameKey)) { return; }
+        playerName = PlayerPrefs.GetString(PlayerPrefsNameKey);
     }
 
     public override void OnStartLocalPlayer()
@@ -102,7 +119,8 @@ public class BirdController : NetworkBehaviour
             finishTimer += Time.deltaTime;
             if (finishTimer >= finishDuration)
             {
-                SceneManager.LoadScene("FinishSceneSP");
+                CmdFinishGame();
+                
             }
         }
 
@@ -190,6 +208,19 @@ public class BirdController : NetworkBehaviour
 
         //correct rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, originalRotation, Time.time * rotationSpeed);
+    }
 
+    public bool calledFinishGame = false;
+
+
+    [Command]
+    private void CmdFinishGame()
+    {
+        if (!calledFinishGame)
+        {
+            Room.FinishGame( playerName );
+            calledFinishGame = true;
+        }
+            
     }
 }

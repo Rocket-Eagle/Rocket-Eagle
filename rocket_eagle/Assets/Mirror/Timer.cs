@@ -18,6 +18,7 @@ public class Timer : MonoBehaviour
     void OnEnable()
     {
         time = GetComponent<Text>();
+        time.text = "T i m e : 0";
     }
 
     // Update is called once per frame
@@ -25,6 +26,10 @@ public class Timer : MonoBehaviour
     {
         player = GameObject.Find("LocalBird");
         bird = player.GetComponent<BirdController>();
+        if (bird.countDown > 0) // don't start timer until countdown is finished
+        {
+            return;
+        }
         if (!bird.finished)
         {
             timeElapsed += Time.deltaTime;

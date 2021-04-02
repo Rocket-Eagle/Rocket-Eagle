@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e14e7b1198a793d42965b5a59df0b5ea, type: 3}
-  m_Name: Reset
+  m_Name: Restart
   m_EditorClassIdentifier: 
-  Name: 
-  description: 
-  Visual: {fileID: 0}
+  Name: Restart
+  description: Sends player back to the start
+  Visual: {fileID: 21300000, guid: 70f046ad8a5189943ac081cd0862fe05, type: 3}

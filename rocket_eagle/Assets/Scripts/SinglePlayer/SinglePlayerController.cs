@@ -169,6 +169,21 @@ public class SinglePlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Pipe" && !ghostMode)
+        {
+
+            //reset position
+            rigidBody.position = rigidBody.position - penalty;
+
+            //reset speed
+            rigidBody.velocity = new Vector2(0, 0);
+
+            recovering = true;
+        }
+    }
+
     private void Blink()
     {
         if (this.gameObject.GetComponent<SpriteRenderer>().enabled == true)

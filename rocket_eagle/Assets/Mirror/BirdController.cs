@@ -33,6 +33,9 @@ public class BirdController : NetworkBehaviour
     public int bottomBoundary = -5;
     public float countDown = 3.00f;
 
+    public float ghostTime = 0;
+    public bool ghostMode = false;
+
     private NetworkManagerLobby room;
     private NetworkManagerLobby Room
     {
@@ -155,7 +158,7 @@ public class BirdController : NetworkBehaviour
 
     //
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Pipe") {
+        if (col.gameObject.tag == "Pipe" && !ghostMode) {
 
             //reset position
             rigidBody.position = rigidBody.position - penalty;
@@ -182,7 +185,23 @@ public class BirdController : NetworkBehaviour
         {
             rigidBody.velocity = rigidBody.velocity + horizontalAcceleration;
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Pipe" && !ghostMode)
+        {
+
+            //reset position
+            rigidBody.position = rigidBody.position - penalty;
+
+            //reset speed
+            rigidBody.velocity = new Vector2(0, 0);
+
+            recovering = true;
         }
+    }
+
 
     private void Blink()
     {

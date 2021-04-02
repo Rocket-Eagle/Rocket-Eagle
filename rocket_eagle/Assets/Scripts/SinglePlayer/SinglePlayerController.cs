@@ -32,6 +32,10 @@ public class SinglePlayerController : MonoBehaviour
     public int topBoundary = 5;
     public int bottomBoundary = -5;
 
+    public float ghostTime = 0;
+    public bool ghostMode = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -120,12 +124,23 @@ public class SinglePlayerController : MonoBehaviour
             rigidBody.velocity = rigidBody.velocity + verticalAcceleration;
         }
 
+        if (ghostTime>0)
+        {
+            ghostTime -= Time.smoothDeltaTime;
+            if (ghostTime <= 0)
+            {
+                spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+                ghostMode = false;
+            }
+        }
+
     }
 
     //
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Pipe")
+        if (col.gameObject.tag == "Pipe"&&!ghostMode)
         {
 
             //reset position
@@ -179,5 +194,21 @@ public class SinglePlayerController : MonoBehaviour
         //correct rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, originalRotation, Time.time * rotationSpeed);
 
+    }
+
+    public void Boost()
+    {
+        rigidBody.velocity = rigidBody.velocity + new Vector2(3,0);
+    }
+    public void Ghost()
+    {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(1f, 1f, 1f, .5f);
+        ghostMode = true;
+        ghostTime = 10;
+    }
+    public void Restart()
+    {
+        rigidBody.position = new Vector2(-6.8f, -0.65f);
     }
 }

@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class ItemBlock : MonoBehaviour
 {
+    // Use this for initialization
+    [SerializeField] private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -12,6 +20,10 @@ public class ItemBlock : MonoBehaviour
             {
                 other.GetComponent<BirdItem>().StartPickup();
                 StartCoroutine(Respawn(3f));
+
+                //play sound
+                audioSource.PlayOneShot(audioSource.clip);
+                //audioSource.Play();
             }
         }
     }

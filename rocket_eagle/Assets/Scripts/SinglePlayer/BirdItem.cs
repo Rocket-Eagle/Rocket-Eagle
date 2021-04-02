@@ -66,20 +66,24 @@ public class BirdItem : MonoBehaviour
         if (HeldItem == 0)
         {
             Bird.Boost();
+            Bird.PlayAudioClip(Handle.AllItems[0].audioClip);
         }
         else if (HeldItem == 1)
         {
             Bird.Ghost();
+            Bird.PlayAudioClip(Handle.AllItems[1].audioClip);
         }
         if (HeldItem != 2)
         {
             ResetItem();
+            
         }        
     }
 
     public IEnumerator Danger()
     {
         yield return new WaitForSeconds(4);
+        Bird.PlayAudioClip(Handle.AllItems[2].audioClip);
         Bird.Restart();
         ResetItem();
     }

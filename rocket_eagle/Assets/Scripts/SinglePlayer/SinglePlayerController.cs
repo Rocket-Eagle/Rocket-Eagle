@@ -10,7 +10,8 @@ public class SinglePlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite defaultSkin;
     [SerializeField] public Sprite[] spriteArray;
-    
+    [SerializeField] public AudioClip flappingSound;
+
 
     Rigidbody2D rigidBody;
     public Vector2 startingVelocity = new Vector2(5, 0);
@@ -35,6 +36,8 @@ public class SinglePlayerController : MonoBehaviour
     public float ghostTime = 0;
     public bool ghostMode = false;
 
+    //the audio source that will be used to play sounds
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +60,9 @@ public class SinglePlayerController : MonoBehaviour
             //file was found, so everything is good
             spriteRenderer.sprite = selectedSkin.GetPreviewImage();
         }
+
+        //load the audio source
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -122,6 +128,7 @@ public class SinglePlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             rigidBody.velocity = rigidBody.velocity + verticalAcceleration;
+            PlayAudioClip(flappingSound);
         }
 
         if (ghostTime>0)
@@ -225,5 +232,13 @@ public class SinglePlayerController : MonoBehaviour
     public void Restart()
     {
         rigidBody.position = new Vector2(-6.8f, -0.65f);
+    }
+
+    /*
+     * play the sound 
+     */
+    public void PlayAudioClip(AudioClip audio)
+    {
+        audioSource.PlayOneShot(audio);
     }
 }

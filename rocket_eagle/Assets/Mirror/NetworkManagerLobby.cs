@@ -17,7 +17,8 @@ public class NetworkManagerLobby : NetworkManager
     [SerializeField] private NetworkGamePlayerLobby gamePlayerPrefab = null;
     [SerializeField] private GameObject playerSpawnSystem = null;
 
-    string[] maps = { "Field", "Cave", "Ocean" };
+    string[] maps = { "MultiplayerField", "MultiplayerCave", "MultiplayerOcean" };
+    //string[] maps = { "MultiplayerOcean", "MultiplayerOcean", "MultiplayerOcean" };
     private string winnerName = "";
 
     public NetworkManagerLobby Instance;

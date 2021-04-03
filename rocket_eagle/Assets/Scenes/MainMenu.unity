@@ -1276,7 +1276,7 @@ MonoBehaviour:
   serverTickRate: 30
   serverBatching: 0
   serverBatchInterval: 0
-  offlineScene: 
+  offlineScene: Assets/Scenes/MainMenu.unity
   onlineScene: Assets/Scenes/MainMenu.unity
   transport: {fileID: 313034083}
   networkAddress: localhost

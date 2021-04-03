@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Field.unity
     guid: 1d6768b4ce286a449b8c17ced4553a58
   - enabled: 1
+    path: Assets/Scenes/FinishSceneMP.unity
+    guid: 75b501976f8cb1a43b13acb70b62b834
+  - enabled: 1
     path: Assets/Scenes/FinishSceneSP.unity
     guid: 9fb9968446e1f044daadfdbab16fca44
   - enabled: 1

@@ -20,6 +20,7 @@ public class NetworkManagerLobby : NetworkManager
     string[] maps = { "Field", "Cave", "Ocean" };
     private string winnerName = "";
 
+    public NetworkManagerLobby Instance;
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
     public static event Action<NetworkConnection> OnServerReadied;

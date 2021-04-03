@@ -1366,7 +1366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bac65ad6798a98408f7f0cae0e1ba9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
   runInBackground: 1
   autoStartServerBuild: 1
   showDebugMessages: 0
@@ -1390,6 +1390,7 @@ MonoBehaviour:
   roomPlayerPrefab: {fileID: -3612533455010137171, guid: cb6f7a6c9aceefd4eb1b0ec429e270a9, type: 3}
   gamePlayerPrefab: {fileID: 2445096856917071311, guid: 0c944ade4275bef488ad7cbdd6bf51fd, type: 3}
   playerSpawnSystem: {fileID: 4716417840416308261, guid: e8479f58ddcb55646b350fa80441b176, type: 3}
+  Instance: {fileID: 0}
 --- !u!4 &313034085
 Transform:
   m_ObjectHideFlags: 0

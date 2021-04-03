@@ -29,6 +29,18 @@ public class NetworkManagerLobby : NetworkManager
     public List<NetworkGamePlayerLobby> GamePlayers { get; } = new List<NetworkGamePlayerLobby>();
 
 
+    public override void Start()
+    {
+        base.Start();
+            if (Instance != null)
+            {
+                Destroy(Instance);//destroy the old instance in favor of the new
+            }
+            Instance = this;//keep the new!
+            DontDestroyOnLoad(gameObject);//preserve for subsequent playScenes
+
+    }
+
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
     public override void OnStartClient()
@@ -39,6 +51,11 @@ public class NetworkManagerLobby : NetworkManager
         {
             ClientScene.RegisterPrefab(prefab);
         }
+    }
+
+    public override void Awake()
+    {
+        base.Awake();
     }
 
     public override void OnClientConnect(NetworkConnection conn)
@@ -133,7 +150,7 @@ public class NetworkManagerLobby : NetworkManager
         if (SceneManager.GetActiveScene().path == menuScene)
         {
             if (!IsReadyToStart()) { return; }
-            int mapNum = UnityEngine.Random.Range(0, 3);
+            int mapNum = UnityEngine.Random.Range(0, maps.Length);
             ServerChangeScene(maps[mapNum]);
         }
     }

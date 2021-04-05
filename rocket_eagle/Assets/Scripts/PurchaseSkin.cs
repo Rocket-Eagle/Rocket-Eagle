@@ -325,11 +325,13 @@ public class PurchaseSkin : MonoBehaviour
     private void reSaveSkins()
     {
         //TEMP: MAKE A SKIN SO THERE IS SOMETHING TO LOAD
-        
-        possibleSkins = new Skins[3];
-        possibleSkins[0] = new Skins("bird", 0, true);//this is the default skin
-        possibleSkins[1] = new Skins("blueBird", 150, false);
-        possibleSkins[2] = new Skins("fireBird", 200, false);
+
+        int index = 0;
+        possibleSkins = new Skins[4];
+        possibleSkins[index++] = new Skins("bird", 0, true);//this is the default skin
+        possibleSkins[index++] = new Skins("blueBird", 150, false);
+        possibleSkins[index++] = new Skins("fireBird", 200, false);
+        possibleSkins[index++] = new Skins("GoldBird", 500, false);
 
         SaveGameData.SaveSkins(possibleSkins);
         

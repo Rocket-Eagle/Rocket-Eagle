@@ -17,9 +17,11 @@ public class NetworkManagerLobby : NetworkManager
     [SerializeField] private NetworkGamePlayerLobby gamePlayerPrefab = null;
     [SerializeField] private GameObject playerSpawnSystem = null;
 
-    string[] maps = { "Field", "Cave", "Ocean" };
+    string[] maps = { "MultiplayerField", "MultiplayerCave", "MultiplayerOcean" };
+    //string[] maps = { "MultiplayerOcean", "MultiplayerOcean", "MultiplayerOcean" };
     private string winnerName = "";
 
+    public NetworkManagerLobby Instance;
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
     public static event Action<NetworkConnection> OnServerReadied;
@@ -28,6 +30,18 @@ public class NetworkManagerLobby : NetworkManager
     public List<NetworkRoomPlayerLobby> RoomPlayers { get; } = new List<NetworkRoomPlayerLobby>();
     public List<NetworkGamePlayerLobby> GamePlayers { get; } = new List<NetworkGamePlayerLobby>();
 
+
+    public override void Start()
+    {
+        base.Start();
+            if (Instance != null)
+            {
+                Destroy(Instance);//destroy the old instance in favor of the new
+            }
+            Instance = this;//keep the new!
+            DontDestroyOnLoad(gameObject);//preserve for subsequent playScenes
+
+    }
 
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
@@ -39,6 +53,11 @@ public class NetworkManagerLobby : NetworkManager
         {
             ClientScene.RegisterPrefab(prefab);
         }
+    }
+
+    public override void Awake()
+    {
+        base.Awake();
     }
 
     public override void OnClientConnect(NetworkConnection conn)
@@ -133,7 +152,7 @@ public class NetworkManagerLobby : NetworkManager
         if (SceneManager.GetActiveScene().path == menuScene)
         {
             if (!IsReadyToStart()) { return; }
-            int mapNum = UnityEngine.Random.Range(0, 3);
+            int mapNum = UnityEngine.Random.Range(0, maps.Length);
             ServerChangeScene(maps[mapNum]);
         }
     }

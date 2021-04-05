@@ -18,7 +18,7 @@ public class NetworkManagerLobby : NetworkManager
     [SerializeField] private GameObject playerSpawnSystem = null;
 
     string[] maps = { "MultiplayerField", "MultiplayerCave", "MultiplayerOcean" };
-    //string[] maps = { "MultiplayerOcean", "MultiplayerOcean", "MultiplayerOcean" };
+    //string[] maps = { "MultiplayerCave", "MultiplayerCave", "MultiplayerCave" };
     private string winnerName = "";
 
     public NetworkManagerLobby Instance;
@@ -73,6 +73,7 @@ public class NetworkManagerLobby : NetworkManager
 
         OnClientDisconnected?.Invoke();
     }
+
 
     public override void OnServerConnect(NetworkConnection conn)
     {
@@ -167,6 +168,11 @@ public class NetworkManagerLobby : NetworkManager
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(gamePlayerPrefab);
                 gameplayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
+                BirdController bird = gameplayerInstance.GetComponent<BirdController>();
+                //bird.ghostMode = true;
+                bird.SkinName = RoomPlayers[i].BirdSkin;
+                bird.playerName = RoomPlayers[i].BirdName;
+           
 
                 NetworkServer.Destroy(conn.identity.gameObject);
 

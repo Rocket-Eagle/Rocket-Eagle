@@ -801,7 +801,6 @@ GameObject:
   - component: {fileID: 430135689}
   - component: {fileID: 430135688}
   - component: {fileID: 430135687}
-  - component: {fileID: 430135691}
   m_Layer: 5
   m_Name: UIHandler
   m_TagString: Untagged
@@ -887,26 +886,6 @@ RectTransform:
   m_AnchoredPosition: {x: -662, y: 274}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &430135691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 430135686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68625874c48267b4faa915181a2441cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeBtwShuffle: 0.05
-  AllItemGraphics:
-  - {fileID: 21300000, guid: c43ae332ad5e30349875339a33d02976, type: 3}
-  - {fileID: 21300000, guid: e25d5dcbad74f864e8b37c00d5aca87a, type: 3}
-  - {fileID: 21300000, guid: 70f046ad8a5189943ac081cd0862fe05, type: 3}
-  EmptyItem: {fileID: 21300000, guid: 07384f3e3048c37448cfa902168db484, type: 3}
-  Img: {fileID: 1687692735}
-  Bird: {fileID: 0}
 --- !u!1 &501459406
 GameObject:
   m_ObjectHideFlags: 0

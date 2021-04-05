@@ -11,6 +11,7 @@ public class BirdController : NetworkBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite defaultSkin;
     [SerializeField] public Sprite[] spriteArray;
+    [SerializeField] private Sprite[] possibleSkins;
 
     Rigidbody2D rigidBody;
     public Vector2 startingVelocity = new Vector2(5, 0);
@@ -33,6 +34,9 @@ public class BirdController : NetworkBehaviour
     public int bottomBoundary = -5;
     public float countDown = 3.00f;
 
+    [SyncVar]
+    public string SkinName;
+
     public float ghostTime = 0;
     public bool ghostMode = false;
 
@@ -46,7 +50,7 @@ public class BirdController : NetworkBehaviour
         }
     }
 
-    private const string PlayerPrefsNameKey = "PlayerName";
+
     public string playerName = "";
 
     // Start is called before the first frame update
@@ -57,23 +61,13 @@ public class BirdController : NetworkBehaviour
         originalRotation = transform.rotation;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        //get the sprite from the file
-        Skins selectedSkin = SaveGameData.LoadSelectedSkin();
-        if (selectedSkin == null || selectedSkin.GetPreviewImage() == null)
+        for (int i =0; i < possibleSkins.Length; i++)
         {
-            //no skin/file was found, using the default
-            Debug.LogError("ERROR, the skin preview image was not found, resorting to default");
-            spriteRenderer.sprite = defaultSkin;
+            if (possibleSkins[i].name.Equals(SkinName))
+            {
+                spriteRenderer.sprite = possibleSkins[i];
+            }
         }
-        else
-        {
-            //file was found, so everything is good
-            spriteRenderer.sprite = selectedSkin.GetPreviewImage();
-        }
-
-        //get the player's name
-        if (!PlayerPrefs.HasKey(PlayerPrefsNameKey)) { return; }
-        playerName = PlayerPrefs.GetString(PlayerPrefsNameKey);
     }
 
     public override void OnStartLocalPlayer()

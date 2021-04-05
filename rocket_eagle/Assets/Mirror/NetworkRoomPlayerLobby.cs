@@ -16,6 +16,9 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
 
+    public string BirdSkin = "bird";
+    public string BirdName = "";
+
     private bool isLeader;
     public bool IsLeader
     {
@@ -103,6 +106,8 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     private void CmdSetDisplayName(string displayName)
     {
         DisplayName = displayName;
+        BirdSkin = SaveGameData.LoadSelectedSkin().ToString();
+        BirdName = displayName;
     }
 
     [Command]

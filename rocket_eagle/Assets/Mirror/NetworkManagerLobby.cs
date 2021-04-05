@@ -74,6 +74,7 @@ public class NetworkManagerLobby : NetworkManager
         OnClientDisconnected?.Invoke();
     }
 
+
     public override void OnServerConnect(NetworkConnection conn)
     {
         if (numPlayers >= maxConnections)
@@ -167,6 +168,11 @@ public class NetworkManagerLobby : NetworkManager
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(gamePlayerPrefab);
                 gameplayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
+                BirdController bird = gameplayerInstance.GetComponent<BirdController>();
+                //bird.ghostMode = true;
+                bird.SkinName = RoomPlayers[i].BirdSkin;
+                bird.playerName = RoomPlayers[i].BirdName;
+           
 
                 NetworkServer.Destroy(conn.identity.gameObject);
 

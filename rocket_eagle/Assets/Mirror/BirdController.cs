@@ -11,6 +11,8 @@ public class BirdController : NetworkBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite defaultSkin;
     [SerializeField] public Sprite[] spriteArray;
+    [SerializeField] private Sprite[] possibleSkins;
+    [SerializeField] public AudioClip flappingSound;
 
     Rigidbody2D rigidBody;
     public Vector2 startingVelocity = new Vector2(5, 0);
@@ -33,6 +35,27 @@ public class BirdController : NetworkBehaviour
     public int bottomBoundary = -5;
     public float countDown = 3.00f;
 
+    [SyncVar]
+    public string SkinName;
+
+    public float ghostTime = 0;
+    public bool ghostMode = false;
+    //the audio source that will be used to play sounds
+    private AudioSource audioSource;
+
+    private NetworkManagerLobby room;
+    private NetworkManagerLobby Room
+    {
+        get
+        {
+            if (room != null) { return room; }
+            return room = NetworkManager.singleton as NetworkManagerLobby;
+        }
+    }
+
+
+    public string playerName = "";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,19 +64,16 @@ public class BirdController : NetworkBehaviour
         originalRotation = transform.rotation;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        //get the sprite from the file
-        Skins selectedSkin = SaveGameData.LoadSelectedSkin();
-        if (selectedSkin == null || selectedSkin.GetPreviewImage() == null)
+        for (int i =0; i < possibleSkins.Length; i++)
         {
-            //no skin/file was found, using the default
-            Debug.LogError("ERROR, the skin preview image was not found, resorting to default");
-            spriteRenderer.sprite = defaultSkin;
+            if (possibleSkins[i].name.Equals(SkinName))
+            {
+                spriteRenderer.sprite = possibleSkins[i];
+            }
         }
-        else
-        {
-            //file was found, so everything is good
-            spriteRenderer.sprite = selectedSkin.GetPreviewImage();
-        }
+
+        //load the audio source
+        audioSource = GetComponent<AudioSource>();
     }
 
     public override void OnStartLocalPlayer()
@@ -102,7 +122,8 @@ public class BirdController : NetworkBehaviour
             finishTimer += Time.deltaTime;
             if (finishTimer >= finishDuration)
             {
-                SceneManager.LoadScene("FinishSceneSP");
+                CmdFinishGame();
+                
             }
         }
 
@@ -131,13 +152,25 @@ public class BirdController : NetworkBehaviour
         // increase altitude if screen is tapped
         if (Input.GetMouseButtonDown(0)){
             rigidBody.velocity = rigidBody.velocity + verticalAcceleration;
+            PlayAudioClip(flappingSound);
+        }
+
+        if (ghostTime > 0)
+        {
+            ghostTime -= Time.smoothDeltaTime;
+            if (ghostTime <= 0)
+            {
+                spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+                spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+                ghostMode = false;
+            }
         }
 
     }
 
     //
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Pipe") {
+        if (col.gameObject.tag == "Pipe" && !ghostMode) {
 
             //reset position
             rigidBody.position = rigidBody.position - penalty;
@@ -164,7 +197,23 @@ public class BirdController : NetworkBehaviour
         {
             rigidBody.velocity = rigidBody.velocity + horizontalAcceleration;
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Pipe" && !ghostMode)
+        {
+
+            //reset position
+            rigidBody.position = rigidBody.position - penalty;
+
+            //reset speed
+            rigidBody.velocity = new Vector2(0, 0);
+
+            recovering = true;
         }
+    }
+
 
     private void Blink()
     {
@@ -190,6 +239,43 @@ public class BirdController : NetworkBehaviour
 
         //correct rotation
         transform.rotation = Quaternion.Slerp(transform.rotation, originalRotation, Time.time * rotationSpeed);
+    }
 
+    public bool calledFinishGame = false;
+
+
+    [Command]
+    private void CmdFinishGame()
+    {
+        if (!calledFinishGame)
+        {
+            Room.FinishGame( playerName );
+            calledFinishGame = true;
+        }
+            
+    }
+
+    public void Boost()
+    {
+        rigidBody.velocity = rigidBody.velocity + new Vector2(3, 0);
+    }
+    public void Ghost()
+    {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color(1f, 1f, 1f, .5f);
+        ghostMode = true;
+        ghostTime = 10;
+    }
+    public void Restart()
+    {
+        rigidBody.position = new Vector2(-6.8f, -0.65f);
+    }
+
+    /*
+     * play the sound 
+     */
+    public void PlayAudioClip(AudioClip audio)
+    {
+        audioSource.PlayOneShot(audio);
     }
 }

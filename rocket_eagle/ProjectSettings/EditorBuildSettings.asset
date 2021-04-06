@@ -15,8 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScreen.unity
     guid: 7a04b72cff5e3d84c8bd15aa6d35154d
   - enabled: 1
-    path: Assets/Scenes/Field.unity
+    path: Assets/Scenes/MultiplayerField.unity
     guid: 1d6768b4ce286a449b8c17ced4553a58
+  - enabled: 1
+    path: Assets/Scenes/FinishSceneMP.unity
+    guid: 75b501976f8cb1a43b13acb70b62b834
   - enabled: 1
     path: Assets/Scenes/FinishSceneSP.unity
     guid: 9fb9968446e1f044daadfdbab16fca44
@@ -29,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ocean.unity
     guid: 53c2320f7f047654591aef7435b3e7e3
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerOcean.unity
+    guid: 58e363c483ddabf4f81c9018399c9140
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerCave.unity
+    guid: af8bfaef2d036944fbec7bdc143c1a3c
   m_configObjects: {}

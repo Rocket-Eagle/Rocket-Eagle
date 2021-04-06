@@ -43,7 +43,7 @@ public class PurchaseSkin : MonoBehaviour
         if(possibleSkins == null)
         {
             //this is either an error, or a onetime initialization
-            Debug.LogError("Error, loaded in zero skin objects!");
+            Debug.Log("Error, loaded in zero skin objects!");
             reSaveSkins();
 
             //set the selected skin
@@ -137,10 +137,8 @@ public class PurchaseSkin : MonoBehaviour
      */
     public void saveData()
     {
-        Debug.Log("Saving game data!");
         SaveGameData.SavePlayerCoin(birdCoinWallet);
         SaveGameData.SaveSkins(possibleSkins);
-        Debug.Log("Game data saved");
     }
 
     /*
@@ -197,8 +195,6 @@ public class PurchaseSkin : MonoBehaviour
      */
     public void updatePlayerSkin()
     {
-        Debug.Log("Selecting this player skin");
-
         //save the currently selected skin, this is going to be loaded in the BirdController class
         SaveGameData.SaveSelectedSkin(possibleSkins[currentSelected]);
         ShowSelectMessage();
@@ -221,14 +217,12 @@ public class PurchaseSkin : MonoBehaviour
      */
     public void CycleLeft()
     {
-        Debug.Log("Going right from index:" + currentSelected);
         if (currentSelected == 0)
         {
             currentSelected = possibleSkins.Length;
         }
 
         currentSelected--;
-        Debug.Log("To:" + currentSelected);
 
         //make sure the correct button shows up on the screen
         enableButton();
@@ -245,7 +239,6 @@ public class PurchaseSkin : MonoBehaviour
      */
     public void CycleRight()
     {
-        Debug.Log("Going right from index:" + currentSelected);
         if (currentSelected == possibleSkins.Length - 1)
         {
             currentSelected = 0;
@@ -254,7 +247,6 @@ public class PurchaseSkin : MonoBehaviour
         {
             currentSelected++;
         }
-        Debug.Log("To:" + currentSelected);
 
         //make sure the correct button shows up on the screen
         enableButton();
@@ -271,8 +263,6 @@ public class PurchaseSkin : MonoBehaviour
      */
     private void ReloadPreviewImage()
     {
-        Debug.Log("Trying to load image at skin:" + currentSelected);
-
         Sprite newSprite = possibleSkins[currentSelected].GetPreviewImage();
 
         selectionScreen.sprite = newSprite;
@@ -335,11 +325,13 @@ public class PurchaseSkin : MonoBehaviour
     private void reSaveSkins()
     {
         //TEMP: MAKE A SKIN SO THERE IS SOMETHING TO LOAD
-        
-        possibleSkins = new Skins[3];
-        possibleSkins[0] = new Skins("bird", 0, true);//this is the default skin
-        possibleSkins[1] = new Skins("blueBird", 150, false);
-        possibleSkins[2] = new Skins("fireBird", 200, false);
+
+        int index = 0;
+        possibleSkins = new Skins[4];
+        possibleSkins[index++] = new Skins("bird", 0, true);//this is the default skin
+        possibleSkins[index++] = new Skins("blueBird", 150, false);
+        possibleSkins[index++] = new Skins("fireBird", 200, false);
+        possibleSkins[index++] = new Skins("blingBird", 500, false);
 
         SaveGameData.SaveSkins(possibleSkins);
         

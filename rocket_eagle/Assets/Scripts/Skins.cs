@@ -48,6 +48,11 @@ public class Skins
         loadSkinImage(imageName);
     }
 
+    public override string ToString()
+    {
+        return imageName;
+    }
+
     /*
      * constructor to load in the skin data using an image
      */

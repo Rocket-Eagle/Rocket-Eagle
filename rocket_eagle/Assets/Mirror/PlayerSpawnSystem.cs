@@ -7,7 +7,6 @@ using Mirror;
 public class PlayerSpawnSystem : NetworkBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private GameObject playerPrefab = null;
 
     private static List<Transform> spawnPoints = new List<Transform>();
 
@@ -45,9 +44,6 @@ public class PlayerSpawnSystem : NetworkBehaviour
         {
             Debug.LogError($"Misssing spawn pointer for player {nextIndex}");
         }
-
-        //GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
-        //NetworkServer.AddPlayerForConnection(conn, playerInstance);
 
         nextIndex++;
     }

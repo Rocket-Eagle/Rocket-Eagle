@@ -135,6 +135,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4b2c7c6dc48d70a4ebef9494d6919b8f, type: 3}
   - {fileID: 21300000, guid: d5784af80ecc16246afd0e6c287b57d3, type: 3}
   - {fileID: 21300000, guid: 62dea3b551d2038459ab51a53491dac8, type: 3}
+  - {fileID: 21300000, guid: 40dff84b64eeca64cb42d13690f01b6b, type: 3}
   flappingSound: {fileID: 8300000, guid: 553039bba33741e4bbc2eeeec1c9f3d0, type: 3}
   startingVelocity: {x: 5, y: 0}
   penalty: {x: 5, y: 0}

@@ -7,7 +7,7 @@
 | John Hiebert    | joeboby          |
 | Kory McCarthy   | mccarko          |
 | Brittaney Barber| brittbarber      |
-
+David Penner is the team leader.
 
 ### Project Vision  
 To bring fun and joy into the lives of everyday people by allowing them to play quick and exciting games.
